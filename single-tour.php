@@ -79,22 +79,14 @@
                         </div>
                         <?php
                         $table_prices = get_field('table_price', get_the_ID());
-                        echo "<pre>";
-                        var_dump($table_prices); // Debug: Hiển thị dữ liệu gốc của bảng giá
-                        echo "<pre>";
-
                         // Lọc dữ liệu và reset index an toàn
                         $table_head = $table_prices[0];
                         $table_heading__filtered = array_filter($table_head, function ($value) {
                             return !empty($value) && $value !== "";
                         });
-
                         //xóa mảng đầu tiên trong table_prices để tránh hiển thị tiêu đề trong phần thân bảng
                         // $table_body = array_shift($table_prices);
                         array_shift($table_prices); // Xóa phần tử đầu tiên (tiêu đề) khỏi mảng
-
-
-
                         ?>
                         <div class="table-responsive">
                             <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
@@ -110,29 +102,18 @@
                                 </thead>
                                 <tbody>
                                     <?php
-
                                     foreach ($table_prices as $key => $row) :
                                         $filtered_row = array_filter($row, function ($value) {
                                             return !empty($value) && $value !== "";
                                         });
-
-
-
-
-
-
                                     ?>
                                         <tr style="background-color: #ffb703; color: #000000; font-weight: bold;">
                                             <?php foreach ($filtered_row as $key => $value) : ?>
                                                 <td style="text-align: left; vertical-align: middle; border: 1px solid #ffffff; padding-left: 15px;"><?= $value; ?></td>
                                             <?php endforeach; ?>
                                         </tr>
-
                                     <?php endforeach;
-
-
                                     ?>
-
                                 </tbody>
                             </table>
                         </div>
