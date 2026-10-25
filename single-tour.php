@@ -108,15 +108,18 @@
                                             return !empty($value) && $value !== "";
                                         });
 
-                                        var_dump($filtered_row); // Debug: Hiển thị dữ liệu đã lọc cho từng hàng
+
+
+
 
 
                                     ?>
                                         <tr style="background-color: #ffb703; color: #000000; font-weight: bold;">
-                                            <td style="text-align: left; vertical-align: middle; border: 1px solid #ffffff; padding-left: 15px;"><?= $filtered_row['departure_date_table']; ?></td>
-                                            <td style="vertical-align: middle; border: 1px solid #ffffff;"><?= $filtered_row['adult_price']; ?></td>
-                                            <td style="vertical-align: middle; border: 1px solid #ffffff;"><?= $filtered_row['child_price']; ?></td>
+                                            <?php foreach ($filtered_row as $key => $value) : ?>
+                                                <td style="text-align: left; vertical-align: middle; border: 1px solid #ffffff; padding-left: 15px;"><?= $value; ?></td>
+                                            <?php endforeach; ?>
                                         </tr>
+
                                     <?php endforeach;
 
 
