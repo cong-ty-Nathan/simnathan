@@ -84,14 +84,8 @@
                         echo "<pre>";
 
                         // Lọc dữ liệu và reset index an toàn
-                        $has_cols__value = (array_filter($table_prices, function ($row) {
-                            return isset($row['cols']) && is_array($row['cols']) && !empty($row['cols']);
-                        }));
+                        $table_head = $table_prices[0];
 
-
-                        print_r($has_cols__value);
-                        echo "</pre>";
-                        die;
 
                         ?>
                         <div class="table-responsive">
@@ -101,24 +95,30 @@
                             <table class="table table-bordered text-center" style="border: 1px solid #4a90e2; vertical-align: middle;">
                                 <thead style="background-color: #5c93d8; color: #ffffff;">
                                     <tr>
-                                        <th style="width: 40%; vertical-align: middle; border: 1px solid #ffffff;">NGÀY KHỞI HÀNH</th>
-                                        <th style="width: 25%; vertical-align: middle; border: 1px solid #ffffff;">NGƯỜI LỚN</th>
-                                        <th style="width: 35%; vertical-align: middle; border: 1px solid #ffffff;">TRẺ EM<br><span style="font-size: 12px; font-weight: normal;">02 ĐẾN DƯỚI 10 TUỔI</span></th>
+                                        <?php foreach ($table_head as $key => $value) : ?>
+                                            <th style="width: 40%; vertical-align: middle; border: 1px solid #ffffff;"><?= esc_html($key); ?></th>
+                                        <?php endforeach; ?>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $table_price = get_field('table_price');
-                                    if (!is_null($table_price)) :
-                                        foreach ($table_price as $row) :
+
+                                    foreach ($table_prices as $key => $row) :
+                                        $filtered_row = array_filter($row, function ($value) {
+                                            return !empty($value);
+                                        });
+
+                                        var_dump($filtered_row); // Debug: Hiển thị dữ liệu đã lọc cho từng hàng
+
+
                                     ?>
-                                            <tr style="background-color: #ffb703; color: #000000; font-weight: bold;">
-                                                <td style="text-align: left; vertical-align: middle; border: 1px solid #ffffff; padding-left: 15px;"><?= $row['departure_date_table']; ?></td>
-                                                <td style="vertical-align: middle; border: 1px solid #ffffff;"><?= $row['adult_price']; ?></td>
-                                                <td style="vertical-align: middle; border: 1px solid #ffffff;"><?= $row['child_price']; ?></td>
-                                            </tr>
+                                        <tr style="background-color: #ffb703; color: #000000; font-weight: bold;">
+                                            <td style="text-align: left; vertical-align: middle; border: 1px solid #ffffff; padding-left: 15px;"><?= $filtered_row['departure_date_table']; ?></td>
+                                            <td style="vertical-align: middle; border: 1px solid #ffffff;"><?= $filtered_row['adult_price']; ?></td>
+                                            <td style="vertical-align: middle; border: 1px solid #ffffff;"><?= $filtered_row['child_price']; ?></td>
+                                        </tr>
                                     <?php endforeach;
-                                    endif;
+
 
                                     ?>
 
