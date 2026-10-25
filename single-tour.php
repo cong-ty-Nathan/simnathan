@@ -92,7 +92,7 @@
                         //xóa mảng đầu tiên trong table_prices để tránh hiển thị tiêu đề trong phần thân bảng
                         // $table_body = array_shift($table_prices);
                         array_shift($table_prices); // Xóa phần tử đầu tiên (tiêu đề) khỏi mảng
-                        $table_body = array_values($table_prices); // Reset index của mảng sau khi
+
 
 
                         ?>
@@ -111,7 +111,7 @@
                                 <tbody>
                                     <?php
 
-                                    foreach ($table_body as $key => $row) :
+                                    foreach ($table_prices as $key => $row) :
                                         $filtered_row = array_filter($row, function ($value) {
                                             return !empty($value) && $value !== "";
                                         });
