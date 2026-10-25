@@ -85,6 +85,9 @@
 
                         // Lọc dữ liệu và reset index an toàn
                         $table_head = $table_prices[0];
+                        $table_heading__filtered = array_filter($table_head, function ($value) {
+                            return !empty($value) && $value !== "";
+                        });
 
 
                         ?>
@@ -95,7 +98,7 @@
                             <table class="table table-bordered text-center" style="border: 1px solid #4a90e2; vertical-align: middle;">
                                 <thead style="background-color: #5c93d8; color: #ffffff;">
                                     <tr>
-                                        <?php foreach ($table_head as $key => $value) : ?>
+                                        <?php foreach ($table_heading__filtered as $key => $value) : ?>
                                             <th style="width: 40%; vertical-align: middle; border: 1px solid #ffffff;"><?= esc_html($key); ?></th>
                                         <?php endforeach; ?>
                                     </tr>
