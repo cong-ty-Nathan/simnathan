@@ -77,34 +77,43 @@
                             <?php endif; ?>
 
                         </div>
+                        <?php
+                        $table_prices = get_field('table_price', get_the_ID());
+                        // Lọc dữ liệu và reset index an toàn
+                        $table_head = $table_prices[0];
+                        $table_heading__filtered = array_filter($table_head, function ($value) {
+                            return !empty($value) && $value !== "";
+                        });
+                        //xóa mảng đầu tiên trong table_prices để tránh hiển thị tiêu đề trong phần thân bảng
+                        // $table_body = array_shift($table_prices);
+                        array_shift($table_prices); // Xóa phần tử đầu tiên (tiêu đề) khỏi mảng
+                        ?>
                         <div class="table-responsive">
                             <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
-                               BẢNG GIÁ TOUR (VNĐ)
+                                BẢNG GIÁ TOUR (VNĐ)
                             </div>
                             <table class="table table-bordered text-center" style="border: 1px solid #4a90e2; vertical-align: middle;">
                                 <thead style="background-color: #5c93d8; color: #ffffff;">
                                     <tr>
-                                        <th style="width: 40%; vertical-align: middle; border: 1px solid #ffffff;">NGÀY KHỞI HÀNH</th>
-                                        <th style="width: 25%; vertical-align: middle; border: 1px solid #ffffff;">NGƯỜI LỚN</th>
-                                        <th style="width: 35%; vertical-align: middle; border: 1px solid #ffffff;">TRẺ EM<br><span style="font-size: 12px; font-weight: normal;">02 ĐẾN DƯỚI 10 TUỔI</span></th>
+                                        <?php foreach ($table_heading__filtered as $key => $value) : ?>
+                                            <th style="width: 40%; vertical-align: middle; border: 1px solid #ffffff;"><?= $value; ?></th>
+                                        <?php endforeach; ?>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $table_price = get_field('table_price');
-                                    if (!is_null($table_price)) :
-                                        foreach ($table_price as $row) :
+                                    foreach ($table_prices as $key => $row) :
+                                        $filtered_row = array_filter($row, function ($value) {
+                                            return !empty($value) && $value !== "";
+                                        });
                                     ?>
-                                            <tr style="background-color: #ffb703; color: #000000; font-weight: bold;">
-                                                <td style="text-align: left; vertical-align: middle; border: 1px solid #ffffff; padding-left: 15px;"><?= $row['departure_date_table']; ?></td>
-                                                <td style="vertical-align: middle; border: 1px solid #ffffff;"><?= $row['adult_price']; ?></td>
-                                                <td style="vertical-align: middle; border: 1px solid #ffffff;"><?= $row['child_price']; ?></td>
-                                            </tr>
+                                        <tr style="background-color: #ffb703; color: #000000; font-weight: bold;">
+                                            <?php foreach ($filtered_row as $key => $value) : ?>
+                                                <td style="text-align: left; vertical-align: middle; border: 1px solid #ffffff; padding-left: 15px;"><?= $value; ?></td>
+                                            <?php endforeach; ?>
+                                        </tr>
                                     <?php endforeach;
-                                    endif;
-
                                     ?>
-
                                 </tbody>
                             </table>
                         </div>
