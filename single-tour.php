@@ -79,11 +79,12 @@
                         </div>
                         <?php
                         $table_prices = get_field('table_price', get_the_ID());
+                        var_dump($table_prices); // Debug: Hiển thị dữ liệu gốc của bảng giá
 
                         // Lọc dữ liệu và reset index an toàn
-                        $has_cols__value = is_array($table_prices) ? array_values(array_filter($table_prices, function ($row) {
+                        $has_cols__value = (array_filter($table_prices, function ($row) {
                             return isset($row['cols']) && is_array($row['cols']) && !empty($row['cols']);
-                        })) : [];
+                        }));
 
                         echo "<pre>";
                         print_r($has_cols__value);
