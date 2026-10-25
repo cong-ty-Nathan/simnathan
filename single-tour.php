@@ -77,9 +77,23 @@
                             <?php endif; ?>
 
                         </div>
+                        <?php
+                        $table_prices = get_field('table_price', get_the_ID());
+
+                        // Lọc dữ liệu và reset index an toàn
+                        $has_cols__value = is_array($table_prices) ? array_values(array_filter($table_prices, function ($row) {
+                            return isset($row['cols']) && is_array($row['cols']) && !empty($row['cols']);
+                        })) : [];
+
+                        echo "<pre>";
+                        print_r($has_cols__value);
+                        echo "</pre>";
+                        die;
+
+                        ?>
                         <div class="table-responsive">
                             <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
-                               BẢNG GIÁ TOUR (VNĐ)
+                                BẢNG GIÁ TOUR (VNĐ)
                             </div>
                             <table class="table table-bordered text-center" style="border: 1px solid #4a90e2; vertical-align: middle;">
                                 <thead style="background-color: #5c93d8; color: #ffffff;">
