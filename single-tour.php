@@ -79,12 +79,82 @@
                         </div>
                         <?php
                         $table_price = get_field('table_price', get_the_ID());
-                        $uses_extra_table_price = empty($table_price) || !is_array($table_price);
-                        if ($uses_extra_table_price) {
-                            $table_price = get_field('extra_table_price', get_the_ID());
+                        $extra_table_price = get_field('extra_table_price', get_the_ID());
+                        $table_titles = get_field('table_title', get_the_ID());
+                        $has_price_rows = static function ($rows, $price_fields) {
+                            if (!is_array($rows)) {
+                                return false;
+                            }
+
+                            foreach ($rows as $row) {
+                                if (!is_array($row)) {
+                                    continue;
+                                }
+
+                                foreach ($price_fields as $price_field) {
+                                    if (isset($row[$price_field]) && is_scalar($row[$price_field]) && trim((string) $row[$price_field]) !== '') {
+                                        return true;
+                                    }
+                                }
+                            }
+
+                            return false;
+                        };
+                        $get_price_value = static function ($row, $price_fields) {
+                            if (!is_array($row)) {
+                                return '';
+                            }
+
+                            foreach ($price_fields as $price_field) {
+                                if (isset($row[$price_field]) && is_scalar($row[$price_field]) && trim((string) $row[$price_field]) !== '') {
+                                    return $row[$price_field];
+                                }
+                            }
+
+                            return '';
+                        };
+                        $has_table_price = $has_price_rows($table_price, array('departure_date_table', 'adult_price', 'child_price', 'child_price_2_10', 'infant_price', 'infant_price_0_2'));
+                        $uses_extra_table_price = !$has_table_price;
+                        $price_rows = $uses_extra_table_price ? $extra_table_price : $table_price;
+                        $price_headings = array();
+                        if (is_array($table_titles)) {
+                            foreach ($table_titles as $title_index => $title_row) {
+                                $heading = $get_price_value($title_row, array('title'));
+                                $price_headings[$title_index] = $heading !== '' ? $heading : 'Heading';
+                            }
                         }
+                        $price_columns = array(
+                            array(
+                                'fields' => array('departure_date_table'),
+                                'title_index' => 0,
+                                'weight' => 2,
+                                'is_date' => true,
+                            ),
+                            array(
+                                'fields' => array('adult_price'),
+                                'title_index' => 1,
+                                'weight' => 1,
+                                'is_date' => false,
+                            ),
+                            array(
+                                'fields' => $uses_extra_table_price ? array('child_price_2_10', 'child_price') : array('child_price', 'child_price_2_10'),
+                                'title_index' => 2,
+                                'weight' => 1,
+                                'is_date' => false,
+                            ),
+                            array(
+                                'fields' => $uses_extra_table_price ? array('infant_price_0_2', 'infant_price') : array('infant_price', 'infant_price_0_2'),
+                                'title_index' => 3,
+                                'weight' => 1,
+                                'is_date' => false,
+                            ),
+                        );
+                        $price_columns = array_values(array_filter($price_columns, static function ($column) use ($has_price_rows, $price_rows) {
+                            return $has_price_rows($price_rows, $column['fields']);
+                        }));
                         $extra_price = get_field('extra_price', get_the_ID());
-                        if (!empty($table_price) && is_array($table_price)) :
+                        $total_column_weight = array_sum(array_column($price_columns, 'weight'));
+                        if (!empty($price_columns)) :
                         ?>
                             <div class="table-responsive">
                                 <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
@@ -93,19 +163,20 @@
                                 <table class="table table-bordered text-center" style="border: 1px solid #4a90e2; vertical-align: middle;">
                                     <thead style="background-color: #5c93d8; color: #ffffff;">
                                         <tr>
-                                            <th style="width: 40%; vertical-align: middle; border: 1px solid #ffffff;">NGÀY KHỞI HÀNH</th>
-                                            <th style="width: 20%; vertical-align: middle; border: 1px solid #ffffff;">NGƯỜI LỚN<br><span style="font-size: 12px; font-weight: normal;">TỪ 11 TUỔI TRỞ LÊN</span></th>
-                                            <th style="width: 20%; vertical-align: middle; border: 1px solid #ffffff;">TRẺ EM<br><span style="font-size: 12px; font-weight: normal;">02 ĐẾN DƯỚI 10 TUỔI</span></th>
-                                            <th style="width: 20%; vertical-align: middle; border: 1px solid #ffffff;">TRẺ EM<br><span style="font-size: 12px; font-weight: normal;">TỪ 0 ĐẾN 2 TUỔI</span></th>
+                                            <?php foreach ($price_columns as $column) : ?>
+                                                <?php $column_width = round($column['weight'] / $total_column_weight * 100, 2); ?>
+                                                <th style="width: <?php echo esc_attr((string) $column_width); ?>%; vertical-align: middle; border: 1px solid #ffffff;">
+                                                    <?php echo wp_kses(isset($price_headings[$column['title_index']]) ? $price_headings[$column['title_index']] : 'Heading', array('br' => array())); ?>
+                                                </th>
+                                            <?php endforeach; ?>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($table_price as $row) : ?>
+                                        <?php foreach ($price_rows as $row) : ?>
                                             <tr style="background-color: #ffb703; color: #000000; font-weight: bold;">
-                                                <td style="text-align: left; vertical-align: middle; border: 1px solid #ffffff; padding-left: 15px;"><?php echo esc_html($row['departure_date_table'] ?? ''); ?></td>
-                                                <td style="vertical-align: middle; border: 1px solid #ffffff;"><?php echo esc_html($row['adult_price'] ?? ''); ?></td>
-                                                <td style="vertical-align: middle; border: 1px solid #ffffff;"><?php echo esc_html($row[$uses_extra_table_price ? 'child_price_2_10' : 'child_price'] ?? ''); ?></td>
-                                                <td style="vertical-align: middle; border: 1px solid #ffffff;"><?php echo esc_html($row['infant_price_0_2'] ?? ''); ?></td>
+                                                <?php foreach ($price_columns as $column) : ?>
+                                                    <td style="<?php echo $column['is_date'] ? 'text-align: left; padding-left: 15px; ' : ''; ?>vertical-align: middle; border: 1px solid #ffffff;"><?php echo esc_html($get_price_value($row, $column['fields'])); ?></td>
+                                                <?php endforeach; ?>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>
