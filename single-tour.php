@@ -102,7 +102,7 @@
                                 <thead style="background-color: #5c93d8; color: #ffffff;">
                                     <tr>
                                         <?php foreach ($table_heading__filtered as $key => $value) : ?>
-                                            <th style="width: 40%; vertical-align: middle; border: 1px solid #ffffff;"><?= esc_html($value); ?></th>
+                                            <th style="width: 40%; vertical-align: middle; border: 1px solid #ffffff;"><?= wp_kses($value); ?></th>
                                         <?php endforeach; ?>
                                     </tr>
                                 </thead>
