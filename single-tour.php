@@ -105,7 +105,7 @@
 
                                     foreach ($table_prices as $key => $row) :
                                         $filtered_row = array_filter($row, function ($value) {
-                                            return !empty($value);
+                                            return !empty($value) && $value !== "";
                                         });
 
                                         var_dump($filtered_row); // Debug: Hiển thị dữ liệu đã lọc cho từng hàng
