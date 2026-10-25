@@ -90,7 +90,7 @@
                         });
 
                         //xóa mảng đầu tiên trong table_prices để tránh hiển thị tiêu đề trong phần thân bảng
-                        $table_body = array_shift($table_prices);
+                        // $table_body = array_shift($table_prices);
 
 
                         ?>
