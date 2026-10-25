@@ -89,6 +89,9 @@
                             return !empty($value) && $value !== "";
                         });
 
+                        //xóa mảng đầu tiên trong table_prices để tránh hiển thị tiêu đề trong phần thân bảng
+                        $table_body = array_shift($table_prices);
+
 
                         ?>
                         <div class="table-responsive">
@@ -99,14 +102,14 @@
                                 <thead style="background-color: #5c93d8; color: #ffffff;">
                                     <tr>
                                         <?php foreach ($table_heading__filtered as $key => $value) : ?>
-                                            <th style="width: 40%; vertical-align: middle; border: 1px solid #ffffff;"><?= esc_html($key); ?></th>
+                                            <th style="width: 40%; vertical-align: middle; border: 1px solid #ffffff;"><?= esc_html($value); ?></th>
                                         <?php endforeach; ?>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
 
-                                    foreach ($table_prices as $key => $row) :
+                                    foreach ($table_body as $key => $row) :
                                         $filtered_row = array_filter($row, function ($value) {
                                             return !empty($value) && $value !== "";
                                         });
