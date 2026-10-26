@@ -141,10 +141,7 @@ span.wpcf7-form-control-wrap {
 }
 
 /* neo sidebar */
-div#booking_tour {
-	position: sticky;
-	top: 150px;
-}
+
 
 .text {
 	opacity: 0;
