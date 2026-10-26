@@ -77,6 +77,41 @@
                             <?php endif; ?>
 
                         </div>
+                        <section class="tour-packing-section mb60" aria-labelledby="tour-packing-title">
+                            <div class="tour-packing-heading">
+                                <span class="fa fa-suitcase" aria-hidden="true"></span>
+                                <div>
+                                    <h3 id="tour-packing-title">Đồ dùng mang theo</h3>
+                                    <p lang="en">What to bring</p>
+                                </div>
+                            </div>
+                            <ul class="tour-packing-list">
+                                <li>
+                                    <span class="fa fa-shirtsinbulk" aria-hidden="true"></span>
+                                    <span>Quần áo dài tay<small lang="en">Long-sleeved clothes</small></span>
+                                </li>
+                                <li>
+                                    <span class="fa fa-tint" aria-hidden="true"></span>
+                                    <span>Đồ bơi<small lang="en">Swimwear</small></span>
+                                </li>
+                                <li>
+                                    <span class="fa fa-sun-o" aria-hidden="true"></span>
+                                    <span>Kính mát, mũ<small lang="en">Hat, sunglasses</small></span>
+                                </li>
+                                <li>
+                                    <span class="fa fa-bug" aria-hidden="true"></span>
+                                    <span>Thuốc chống côn trùng<small lang="en">Insect repellent</small></span>
+                                </li>
+                                <li>
+                                    <span class="fa fa-shield" aria-hidden="true"></span>
+                                    <span>Kem chống nắng<small lang="en">Sunscreen</small></span>
+                                </li>
+                                <li>
+                                    <span class="fa fa-camera" aria-hidden="true"></span>
+                                    <span>Máy ảnh<small lang="en">Camera</small></span>
+                                </li>
+                            </ul>
+                        </section>
                         <?php
                         $table_prices = get_field('table_price', get_the_ID());
                         // Lọc dữ liệu và reset index an toàn
@@ -198,6 +233,19 @@
                                     <?php do_action('comment_form', get_the_ID()); ?>
                                 </form>
                             </div>
+                            <?php if (isset($single_tour__video)) : ?>
+                                <div class="video-section">
+                                    <h3 class="mb30">Video</h3>
+                                    <div class="video-block">
+                                        <div class="video-img">
+                                            <img src="images/video_img.jpg" alt="">
+                                            <a href="#" class="video-btn">
+                                                <img src="images/play_btn.png" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 col-12">

@@ -157,3 +157,9 @@ div#booking_tour {
 	font-weight: 400;
 	font-size: 14px;
 }
+
+.desti-img img {
+	max-height: 522px !important;
+	height: 100%;
+	object-fit: cover;
+}
