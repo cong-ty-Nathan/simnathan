@@ -254,40 +254,8 @@
                         <!-- enguiry-form -->
                         <div class="widget-form" id="booking_tour">
                             <h3 class="text-white mb30"> Đặt tour của bạn</h3>
-                            <?php if (!empty($single_tour__departure_dates) && is_array($single_tour__departure_dates)) : ?>
-                                <div class="tour-departure-dates">
-                                    <h4 class="tour-departure-dates-title">Ngày khởi hành</h4>
-                                    <ul class="tour-departure-dates-list">
-                                        <?php foreach ($single_tour__departure_dates as $departure_date_row) : ?>
-                                            <?php
-                                            $departure_date_value = isset($departure_date_row['date']) ? trim((string) $departure_date_row['date']) : '';
-                                            if ($departure_date_value === '') {
-                                                continue;
-                                            }
-
-                                            $departure_date_object = DateTimeImmutable::createFromFormat('!Ymd', $departure_date_value);
-                                            if (!$departure_date_object) {
-                                                $departure_date_object = DateTimeImmutable::createFromFormat('!d/m/Y', $departure_date_value);
-                                            }
-                                            if (!$departure_date_object) {
-                                                $departure_date_object = DateTimeImmutable::createFromFormat('!Y-m-d', $departure_date_value);
-                                            }
-                                            $departure_date_label = $departure_date_object
-                                                ? $departure_date_object->format('d/m/Y')
-                                                : $departure_date_value;
-                                            ?>
-                                            <li class="tour-departure-date">
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                <span><?php echo esc_html($departure_date_label); ?></span>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </div>
-                            <?php endif; ?>
-
                             <!-- HÀM GỌI CONTACT FORM 7 -->
                             <?php echo do_shortcode('[contact-form-7 id="4ef78d6" title="Booking Tour"]'); ?>
-
                         </div>
                         <!-- /.enguiry-form -->
                         <div id="contact-map" class="widget-map">
