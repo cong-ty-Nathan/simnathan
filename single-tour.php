@@ -30,7 +30,7 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="tour-caption">
                             <h1 class="text-white tour-title"><?php the_title(); ?></h1>
-                            <p class="tour-caption-text text-white"><strong class="tour-rate">$<?= $single_tour__price; ?></strong>( <?= $single_tour__duration; ?> )</p>
+                            <p class="tour-caption-text text-white"><strong class="tour-rate"><?= $single_tour__price; ?></strong>( <?= $single_tour__duration; ?> )</p>
                             <a href="#booking_tour" class="btn btn-primary mb10">Đặt tour</a>
                             <a href="#contact-map" class="btn btn-white mb10">Xem bản đồ</a>
                         </div>
@@ -78,7 +78,7 @@
                             <?php endif; ?>
 
                         </div>
-                        <?php if (!is_null($single_tour__packing)) : ?>
+                        <?php if (!is_null($single_tour__packing) && !empty($single_tour__packing)) : ?>
                             <section class="tour-packing-section mb60" aria-labelledby="tour-packing-title">
                                 <div class="tour-packing-heading">
                                     <span class="fa fa-suitcase" aria-hidden="true"></span>
