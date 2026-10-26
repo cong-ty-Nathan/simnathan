@@ -78,7 +78,7 @@
                             <?php endif; ?>
 
                         </div>
-                        <?php if (!is_null($single_tour__packing)) : ?>
+                        <?php if (!is_null($single_tour__packing) && !empty($single_tour__packing)) : ?>
                             <section class="tour-packing-section mb60" aria-labelledby="tour-packing-title">
                                 <div class="tour-packing-heading">
                                     <span class="fa fa-suitcase" aria-hidden="true"></span>
