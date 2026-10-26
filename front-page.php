@@ -66,7 +66,7 @@ get_header();
                             <div class="form-group">
                                 <label class="control-label sr-only" for="datepicker"></label>
                                 <div class="input-group">
-                                    <input id="datepicker" name="datepicker" type="text" placeholder="Ngày khởi hành" class="form-control" required>
+                                    <input id="datepicker" name="datepicker" type="text" placeholder="Ngày khởi hành" class="form-control">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
