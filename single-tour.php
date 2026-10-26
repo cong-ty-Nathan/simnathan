@@ -106,9 +106,15 @@
                         array_shift($table_prices); // Xóa phần tử đầu tiên (tiêu đề) khỏi mảng
                         ?>
                         <div class="table-responsive">
-                            <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
-                                BẢNG GIÁ TOUR (VNĐ)
-                            </div>
+                            <?php if (has_term('trekking', 'tour-type', get_the_ID())) : ?>
+                                <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
+                                    THÔNG TIN YÊU CẦU
+                                </div>
+                            <?php else : ?>
+                                <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
+                                    BÁO GIÁ TOUR KHÁCH ĐOÀN
+                                </div>
+                            <?php endif; ?>
                             <table class="table table-bordered text-center" style="border: 1px solid #4a90e2; vertical-align: middle;">
                                 <thead style="background-color: #5c93d8; color: #ffffff;">
                                     <tr>
