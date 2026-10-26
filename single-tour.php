@@ -198,17 +198,19 @@
                                     <?php do_action('comment_form', get_the_ID()); ?>
                                 </form>
                             </div>
-                            <div class="video-section">
-                                <h3 class="mb30">Video</h3>
-                                <div class="video-block">
-                                    <div class="video-img">
-                                        <img src="images/video_img.jpg" alt="">
-                                        <a href="#" class="video-btn">
-                                            <img src="images/play_btn.png" alt="">
-                                        </a>
+                            <?php if (isset($single_tour__video)) : ?>
+                                <div class="video-section">
+                                    <h3 class="mb30">Video</h3>
+                                    <div class="video-block">
+                                        <div class="video-img">
+                                            <img src="images/video_img.jpg" alt="">
+                                            <a href="#" class="video-btn">
+                                                <img src="images/play_btn.png" alt="">
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 col-12">
