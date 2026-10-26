@@ -1326,8 +1326,16 @@ button.btn {
   margin-bottom: 0px;
 }
 
+.tour-booking-modal.show {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
 .tour-booking-modal .modal-dialog {
+  width: calc(100% - 30px);
   max-width: 600px;
+  margin: 1.75rem auto;
 }
 
 .tour-booking-modal .modal-content {

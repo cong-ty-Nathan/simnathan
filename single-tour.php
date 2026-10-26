@@ -222,7 +222,7 @@
                                 </form>
                             </div>
                             <?php if (isset($single_tour__video) && $single_tour__video !== "") : ?>
-                                <div class="video-section">
+                                <div class="video-section mt-3">
                                     <h3 class="mb30">Video</h3>
                                     <div class="video-block">
                                         <div class="video-img">
