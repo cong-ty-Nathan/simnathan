@@ -77,6 +77,59 @@
                             <?php endif; ?>
 
                         </div>
+                        <section class="tour-details-section mb60">
+                            <h3 class="mb30">KHÁM PHÁ HANG VOI &amp; THUNG LŨNG HA MA ĐA</h3>
+                            <p><strong>Giá tour:</strong> 1.950.000 VNĐ</p>
+                            <h4>II. ELEPHANT CAVE &amp; MA DA VALLEY JUNGLE TREK</h4>
+                            <ul>
+                                <li>Đi bộ băng rừng: 09 km <span lang="en">/ Trekking: 09 km</span></li>
+                                <li>Bơi 600 m tại Hang Trạ Ang (không bắt buộc) <span lang="en">/ Swimming: 600 m at Tra Ang Cave (optional)</span></li>
+                                <li>Mức độ mạo hiểm: Trung bình <span lang="en">/ Fitness level: Moderate</span></li>
+                            </ul>
+                            <p>Chương trình tour phù hợp cho những du khách chưa có nhiều kinh nghiệm leo núi chuyên nghiệp nhưng vẫn mong muốn trải nghiệm kỹ năng đi rừng, leo núi và hang động. Chương trình bắt đầu từ bìa rừng, dọc nhánh đường Hồ Chí Minh Tây, nằm trong khu vực Vườn Quốc gia Phong Nha - Kẻ Bàng; du khách khám phá Hang Voi, Thung lũng Ha Ma Đa (một trong những thung lũng đẹp nhất tại Phong Nha), và điểm cuối cùng là Hang Trạ Ang. Du khách còn được thưởng thức BBQ phong cách rừng xanh ngay bên bờ suối.</p>
+                            <p lang="en">This trek is suitable for visitors without much professional climbing experience who still want to experience jungle trekking, mountain climbing, and caves. Starting from the edge of the jungle along the western branch of the Ho Chi Minh Trail in Phong Nha - Ke Bang National Park, the trek explores Elephant Cave and Ha Ma Da Valley (one of the most beautiful valleys in Phong Nha), and ends at Tra Ang Cave. Visitors can also enjoy a jungle-style BBQ by the stream.</p>
+
+                            <h3 class="mb30">LỊCH TRÌNH: 01 NGÀY <span lang="en">/ ITINERARY: 01 DAY</span></h3>
+                            <p><strong>Jungle Boss HQ - Elephant Cave - Ma Da Valley - Tra Ang Valley - Phong Nha</strong></p>
+                            <ul class="list-none">
+                                <li><strong>08:00</strong> Hướng dẫn viên và lái xe đón khách tại các khách sạn ở Phong Nha. <span lang="en">/ Guide and driver pick up guests at homestays in Phong Nha.</span></li>
+                                <li><strong>08:45</strong> Gặp đoàn, nghe phổ biến chương trình tour và di chuyển tới điểm bắt đầu để khám phá 500 - 700 m Hang Voi. <span lang="en">/ Meet the group for a tour briefing, then depart for the starting point to explore 500 - 700 m of Elephant Cave.</span></li>
+                                <li><strong>10:30</strong> Sau khi tham quan Hang Voi, bắt đầu hành trình khám phá Thung lũng Ha Ma Đa. <span lang="en">/ After visiting Elephant Cave, start the journey to explore Ha Ma Da Valley.</span></li>
+                                <li><strong>11:45</strong> Bơi lội và thư giãn tại Hồ Ma Đa. <span lang="en">/ Swim and relax at Ma Da Crystal Lake.</span></li>
+                                <li><strong>12:45</strong> Thưởng thức bữa trưa BBQ bên bờ suối. <span lang="en">/ Enjoy a BBQ lunch by the stream.</span></li>
+                                <li><strong>14:00</strong> Di chuyển tới Hang Trạ Ang. <span lang="en">/ Trek to Tra Ang Cave.</span></li>
+                                <li><strong>15:45</strong> Bơi và khám phá 600 m Hang Trạ Ang. <span lang="en">/ Swim and explore 600 m of Tra Ang Cave.</span></li>
+                                <li><strong>16:30</strong> Kết thúc khám phá Hang Trạ Ang và đi bộ đến đường 20 Quyết Thắng. <span lang="en">/ Finish exploring Tra Ang Cave and hike to Road 20 Quyet Thang.</span></li>
+                                <li><strong>17:00</strong> Đến đường 20 Quyết Thắng và thưởng thức đồ uống lạnh. <span lang="en">/ Arrive at Road 20 Quyet Thang and enjoy cold drinks.</span></li>
+                                <li><strong>17:30</strong> Xe đón khách trở về Phong Nha. Kết thúc tour. <span lang="en">/ Transfer back to Phong Nha. End of tour.</span></li>
+                            </ul>
+
+                            <h3 class="mb30">NHỮNG ĐIỀU CẦN CHÚ Ý KHI THAM GIA TOUR <span lang="en">/ NOTICES WHEN JOINING THE TOUR</span></h3>
+                            <ol>
+                                <li>Độ tuổi tối thiểu: từ 9 tuổi trở lên. <span lang="en">/ Minimum age: 9 years old.</span></li>
+                                <li>Giá tour áp dụng cho đoàn ghép từ 2 khách. <span lang="en">/ Tour price applies to groups of 2 guests or more.</span></li>
+                                <li>Giá tour bao gồm <span lang="en">/ Tour price includes:</span>
+                                    <ul>
+                                        <li>Hướng dẫn viên và đội ngũ khuân vác <span lang="en">/ Tour guide and porter team</span></li>
+                                        <li>Phương tiện di chuyển tại Phong Nha <span lang="en">/ Transportation in Phong Nha</span></li>
+                                        <li>01 bữa trưa và nước uống <span lang="en">/ One lunch and drinking water</span></li>
+                                        <li>Phí tham quan Vườn Quốc gia <span lang="en">/ National Park entrance fees</span></li>
+                                        <li>Bảo hiểm 50.000.000 VNĐ/người <span lang="en">/ Insurance coverage of 50,000,000 VND per person</span></li>
+                                    </ul>
+                                </li>
+                                <li>Tour khởi hành hằng ngày, từ 02 khách. <span lang="en">/ Tour departs daily, with a minimum of 2 guests.</span></li>
+                                <li>Đồ dùng cần mang theo <span lang="en">/ What to bring:</span>
+                                    <ul>
+                                        <li>Quần áo dài tay, tất dài <span lang="en">/ Long-sleeved clothes and long socks</span></li>
+                                        <li>Giày đi bộ, leo núi tốt <span lang="en">/ Good hiking and climbing shoes</span></li>
+                                        <li>Đồ bơi <span lang="en">/ Swimwear</span></li>
+                                        <li>Kính mát, mũ <span lang="en">/ Sunglasses and a hat</span></li>
+                                        <li>Thuốc chống côn trùng <span lang="en">/ Insect repellent</span></li>
+                                        <li>Máy ảnh <span lang="en">/ Camera</span></li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </section>
                         <?php
                         $table_prices = get_field('table_price', get_the_ID());
                         // Lọc dữ liệu và reset index an toàn
