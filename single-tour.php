@@ -210,118 +210,119 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 col-12">
-                            <!-- WIDGET THỜI TIẾT TẠI ĐIỂM ĐẾN -->
-                            <?php if (isset($lat) && isset($lng)) :
-                                $weather = get_tour_weather($lat, $lng);
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 col-12">
+                        <!-- WIDGET THỜI TIẾT TẠI ĐIỂM ĐẾN -->
+                        <?php if (isset($lat) && isset($lng)) :
+                            $weather = get_tour_weather($lat, $lng);
 
-                                if ($weather && isset($weather['daily'])) :
-                            ?>
-                                    <div class="widget-weather mb-4" style="background: #ffffff; border: 1px solid #e1e8ed; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-                                        <h4 style="font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #2c3e50; border-bottom: 2px solid #f0f2f5; padding-bottom: 10px;">
-                                            <i class="fa fa-cloud-sun" style="color: #f39c12; margin-right: 8px;"></i> Thời tiết điểm đến
-                                        </h4>
-                                        <div class="weather-sidebar-list" style="display: flex; flex-direction: column; gap: 10px; max-height: 320px; overflow-y: auto; padding-right: 4px;">
-                                            <?php
-                                            for ($i = 0; $i < count($weather['daily']['time']); $i++) {
-                                                $date     = $weather['daily']['time'][$i];
-                                                $max_temp = $weather['daily']['temperature_2m_max'][$i];
-                                                $min_temp = $weather['daily']['temperature_2m_min'][$i];
-                                                $code     = $weather['daily']['weathercode'][$i];
-                                                $info     = get_weather_info($code);
+                            if ($weather && isset($weather['daily'])) :
+                        ?>
+                                <div class="widget-weather mb-4" style="background: #ffffff; border: 1px solid #e1e8ed; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                                    <h4 style="font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #2c3e50; border-bottom: 2px solid #f0f2f5; padding-bottom: 10px;">
+                                        <i class="fa fa-cloud-sun" style="color: #f39c12; margin-right: 8px;"></i> Thời tiết điểm đến
+                                    </h4>
+                                    <div class="weather-sidebar-list" style="display: flex; flex-direction: column; gap: 10px; max-height: 320px; overflow-y: auto; padding-right: 4px;">
+                                        <?php
+                                        for ($i = 0; $i < count($weather['daily']['time']); $i++) {
+                                            $date     = $weather['daily']['time'][$i];
+                                            $max_temp = $weather['daily']['temperature_2m_max'][$i];
+                                            $min_temp = $weather['daily']['temperature_2m_min'][$i];
+                                            $code     = $weather['daily']['weathercode'][$i];
+                                            $info     = get_weather_info($code);
 
-                                                // Highlight ngày đầu tiên (Hôm nay)
-                                                $is_today = ($i === 0);
-                                                $item_bg = $is_today ? '#f0f7ff' : '#fcfcfc';
-                                                $item_border = $is_today ? '#bce8f1' : '#eee';
-                                            ?>
-                                                <div class="weather-item-row" style="display: flex; align-items: center; justify-content: space-between; background: <?= $item_bg; ?>; border: 1px solid <?= $item_border; ?>; padding: 8px 12px; border-radius: 6px;">
-                                                    <div style="display: flex; align-items: center; gap: 10px;">
-                                                        <span style="font-size: 22px;"><?= $info['icon']; ?></span>
-                                                        <div>
-                                                            <strong style="display: block; font-size: 13px; color: #333;"><?= $is_today ? 'Hôm nay (' . date('d/m', strtotime($date)) . ')' : date('d/m/Y', strtotime($date)); ?></strong>
-                                                            <span style="font-size: 11px; color: #666;"><?= $info['text']; ?></span>
-                                                        </div>
-                                                    </div>
-                                                    <div style="text-align: right; font-size: 12px;">
-                                                        <span style="color: #d9534f; font-weight: bold;"><?= $max_temp; ?>°C</span>
-                                                        <span style="color: #888; margin-left: 4px;">/ <?= $min_temp; ?>°C</span>
+                                            // Highlight ngày đầu tiên (Hôm nay)
+                                            $is_today = ($i === 0);
+                                            $item_bg = $is_today ? '#f0f7ff' : '#fcfcfc';
+                                            $item_border = $is_today ? '#bce8f1' : '#eee';
+                                        ?>
+                                            <div class="weather-item-row" style="display: flex; align-items: center; justify-content: space-between; background: <?= $item_bg; ?>; border: 1px solid <?= $item_border; ?>; padding: 8px 12px; border-radius: 6px;">
+                                                <div style="display: flex; align-items: center; gap: 10px;">
+                                                    <span style="font-size: 22px;"><?= $info['icon']; ?></span>
+                                                    <div>
+                                                        <strong style="display: block; font-size: 13px; color: #333;"><?= $is_today ? 'Hôm nay (' . date('d/m', strtotime($date)) . ')' : date('d/m/Y', strtotime($date)); ?></strong>
+                                                        <span style="font-size: 11px; color: #666;"><?= $info['text']; ?></span>
                                                     </div>
                                                 </div>
-                                            <?php } ?>
-                                        </div>
+                                                <div style="text-align: right; font-size: 12px;">
+                                                    <span style="color: #d9534f; font-weight: bold;"><?= $max_temp; ?>°C</span>
+                                                    <span style="color: #888; margin-left: 4px;">/ <?= $min_temp; ?>°C</span>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
                                     </div>
-                            <?php endif;
-                            endif; ?>
-                            <div class="widget-primary support-list">
-                                <div class="widget-primary-title">
-                                    <h3>Tại sao nên đặt tour với chúng tôi?</h3>
                                 </div>
-                                <?php if (!empty($single_tour__consultant)) : ?>
-                                    <?= $single_tour__consultant ?>
-                                <?php endif; ?>
+                        <?php endif;
+                        endif; ?>
+                        <div class="widget-primary support-list">
+                            <div class="widget-primary-title">
+                                <h3>Tại sao nên đặt tour với chúng tôi?</h3>
                             </div>
-                            <!-- enguiry-form -->
-                            <div class="widget-form" id="booking_tour">
-                                <h3 class="text-white mb30"> Đặt tour của bạn</h3>
-                                <!-- HÀM GỌI CONTACT FORM 7 -->
-                                <?php echo do_shortcode('[contact-form-7 id="4ef78d6" title="Booking Tour"]'); ?>
-                            </div>
-                            <!-- /.enguiry-form -->
-                            <div id="contact-map" class="widget-map">
-                                <?= $single_tour__map; ?>
-                            </div>
+                            <?php if (!empty($single_tour__consultant)) : ?>
+                                <?= $single_tour__consultant ?>
+                            <?php endif; ?>
+                        </div>
+                        <!-- enguiry-form -->
+                        <div class="widget-form" id="booking_tour">
+                            <h3 class="text-white mb30"> Đặt tour của bạn</h3>
+                            <!-- HÀM GỌI CONTACT FORM 7 -->
+                            <?php echo do_shortcode('[contact-form-7 id="4ef78d6" title="Booking Tour"]'); ?>
+                        </div>
+                        <!-- /.enguiry-form -->
+                        <div id="contact-map" class="widget-map">
+                            <?= $single_tour__map; ?>
                         </div>
                     </div>
                 </div>
             </div>
-        <?php endwhile; ?>
-    <?php endif; ?>
+        </div>
+    <?php endwhile; ?>
+<?php endif; ?>
 
-    <div class="bg-light similar-package">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="section-title">
-                        <h2>Chuyến đi tương tự</h2>
-                    </div>
+<div class="bg-light similar-package">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="section-title">
+                    <h2>Chuyến đi tương tự</h2>
                 </div>
             </div>
-            <div class="row">
-                <?php
-                $current_tour_id = get_the_ID();
-                $taxonomy_name   = 'tour-type';
-                $terms  = get_the_terms($current_tour_id, $taxonomy_name);
+        </div>
+        <div class="row">
+            <?php
+            $current_tour_id = get_the_ID();
+            $taxonomy_name   = 'tour-type';
+            $terms  = get_the_terms($current_tour_id, $taxonomy_name);
 
-                if (!is_null($terms) && !is_wp_error($terms)) {
-                    $term_ids = wp_list_pluck($terms, 'term_id');
-                    $args = array(
-                        'post_type' => 'tour',
-                        'posts_per_page' => 3,
-                        'post__not_in' => array($current_tour_id),
-                        'orderBy'   => 'date',
-                        'order'     => 'DESC',
-                        'tax_query' => array(
-                            array(
-                                'taxonomy' => $taxonomy_name,
-                                'field'    => 'term_id',
-                                'terms'    => $term_ids,
-                                'operator' => 'IN'
-                            ),
+            if (!is_null($terms) && !is_wp_error($terms)) {
+                $term_ids = wp_list_pluck($terms, 'term_id');
+                $args = array(
+                    'post_type' => 'tour',
+                    'posts_per_page' => 3,
+                    'post__not_in' => array($current_tour_id),
+                    'orderBy'   => 'date',
+                    'order'     => 'DESC',
+                    'tax_query' => array(
+                        array(
+                            'taxonomy' => $taxonomy_name,
+                            'field'    => 'term_id',
+                            'terms'    => $term_ids,
+                            'operator' => 'IN'
                         ),
-                    );
-                    $tour_query = new WP_Query($args);
-                    if ($tour_query->have_posts()) {
-                        while ($tour_query->have_posts()) {
-                            $tour_query->the_post();
-                            get_template_part('template-parts/content', get_post_type());
-                        }
-                        wp_reset_postdata();
+                    ),
+                );
+                $tour_query = new WP_Query($args);
+                if ($tour_query->have_posts()) {
+                    while ($tour_query->have_posts()) {
+                        $tour_query->the_post();
+                        get_template_part('template-parts/content', get_post_type());
                     }
+                    wp_reset_postdata();
                 }
-                ?>
-            </div>
+            }
+            ?>
         </div>
     </div>
+</div>
 
-    <?php get_footer(); ?>
+<?php get_footer(); ?>
