@@ -14,6 +14,7 @@
         $single_tour__consultant = get_field("tour_consultant", get_the_ID());
         $single_tour__duration   = get_field("tour_duration", get_the_ID());
         $single_tour__departure_dates = get_field("department_date", get_the_ID());
+        $single_tour__packing = get_field("tour_packing_list", get_the_ID());
         // Lấy tọa độ thời tiết
         $lat = get_field('tour_lat', get_the_ID());
         $lng = get_field('tour_lng', get_the_ID());
@@ -77,41 +78,22 @@
                             <?php endif; ?>
 
                         </div>
-                        <section class="tour-packing-section mb60" aria-labelledby="tour-packing-title">
-                            <div class="tour-packing-heading">
-                                <span class="fa fa-suitcase" aria-hidden="true"></span>
-                                <div>
-                                    <h3 id="tour-packing-title">Đồ dùng mang theo</h3>
-                                    <p lang="en">What to bring</p>
+                        <?php if (!is_null($single_tour__packing)) : ?>
+                            <section class="tour-packing-section mb60" aria-labelledby="tour-packing-title">
+                                <div class="tour-packing-heading">
+                                    <span class="fa fa-suitcase" aria-hidden="true"></span>
+                                    <div>
+                                        <h3 id="tour-packing-title">Đồ dùng mang theo</h3>
+                                        <p lang="en">What to bring</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <ul class="tour-packing-list">
-                                <li>
-                                    <span class="fa fa-shirtsinbulk" aria-hidden="true"></span>
-                                    <span>Quần áo dài tay<small lang="en">Long-sleeved clothes</small></span>
-                                </li>
-                                <li>
-                                    <span class="fa fa-tint" aria-hidden="true"></span>
-                                    <span>Đồ bơi<small lang="en">Swimwear</small></span>
-                                </li>
-                                <li>
-                                    <span class="fa fa-sun-o" aria-hidden="true"></span>
-                                    <span>Kính mát, mũ<small lang="en">Hat, sunglasses</small></span>
-                                </li>
-                                <li>
-                                    <span class="fa fa-bug" aria-hidden="true"></span>
-                                    <span>Thuốc chống côn trùng<small lang="en">Insect repellent</small></span>
-                                </li>
-                                <li>
-                                    <span class="fa fa-shield" aria-hidden="true"></span>
-                                    <span>Kem chống nắng<small lang="en">Sunscreen</small></span>
-                                </li>
-                                <li>
-                                    <span class="fa fa-camera" aria-hidden="true"></span>
-                                    <span>Máy ảnh<small lang="en">Camera</small></span>
-                                </li>
-                            </ul>
-                        </section>
+                                <ul class="tour-packing-list">
+                                    <?php foreach ($single_tour__packing as $packing) : ?>
+                                        <?= $packing["item"]; ?>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </section>
+                        <?php endif; ?>
                         <?php
                         $table_prices = get_field('table_price', get_the_ID());
                         // Lọc dữ liệu và reset index an toàn
