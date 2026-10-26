@@ -31,7 +31,7 @@
                         <div class="tour-caption">
                             <h1 class="text-white tour-title"><?php the_title(); ?></h1>
                             <p class="tour-caption-text text-white"><strong class="tour-rate"><?= $single_tour__price; ?></strong>( <?= $single_tour__duration; ?> )</p>
-                            <a href="#booking_tour" class="btn btn-primary mb10">Đặt tour</a>
+                            <button type="button" class="btn btn-primary mb10" data-toggle="modal" data-target="#booking_tour">Đặt tour</button>
                             <a href="#contact-map" class="btn btn-white mb10">Xem bản đồ</a>
                         </div>
                     </div>
@@ -226,10 +226,7 @@
                                     <h3 class="mb30">Video</h3>
                                     <div class="video-block">
                                         <div class="video-img">
-                                            <img src="images/video_img.jpg" alt="">
-                                            <a href="#" class="video-btn">
-                                                <img src="images/play_btn.png" alt="">
-                                            </a>
+                                            <?= $single_tour__video; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -288,10 +285,16 @@
                             <?php endif; ?>
                         </div>
                         <!-- enguiry-form -->
-                        <div class="widget-form" id="booking_tour">
-                            <h3 class="text-white mb30"> Đặt tour của bạn</h3>
-                            <!-- HÀM GỌI CONTACT FORM 7 -->
-                            <?php echo do_shortcode('[contact-form-7 id="4ef78d6" title="Booking Tour"]'); ?>
+                        <div class="modal fade tour-booking-modal" id="booking_tour" tabindex="-1" role="dialog" aria-labelledby="booking-tour-title" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content widget-form">
+                                    <button type="button" class="close tour-booking-modal-close" data-dismiss="modal" aria-label="Đóng">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h3 class="text-white mb30" id="booking-tour-title">Đặt tour của bạn</h3>
+                                    <?php echo do_shortcode('[contact-form-7 id="4ef78d6" title="Booking Tour"]'); ?>
+                                </div>
+                            </div>
                         </div>
                         <!-- /.enguiry-form -->
                         <div id="contact-map" class="widget-map">
