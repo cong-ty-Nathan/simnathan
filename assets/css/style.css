@@ -1326,6 +1326,33 @@ button.btn {
   margin-bottom: 0px;
 }
 
+.tour-booking-modal .modal-dialog {
+  max-width: 600px;
+}
+
+.tour-booking-modal .modal-content {
+  border: 0;
+}
+
+.tour-booking-modal .widget-form {
+  margin-bottom: 0;
+}
+
+.tour-booking-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  color: #fff;
+  opacity: 0.9;
+  z-index: 1;
+}
+
+.tour-booking-modal-close:hover,
+.tour-booking-modal-close:focus {
+  color: #fff;
+  opacity: 1;
+}
+
 .tour-departure-dates {
   margin-bottom: 25px;
   padding: 18px;
