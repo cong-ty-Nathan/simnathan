@@ -233,7 +233,7 @@
                                     <?php do_action('comment_form', get_the_ID()); ?>
                                 </form>
                             </div>
-                            <?php if (isset($single_tour__video)) : ?>
+                            <?php if (isset($single_tour__video) && $single_tour__video !== "") : ?>
                                 <div class="video-section">
                                     <h3 class="mb30">Video</h3>
                                     <div class="video-block">
