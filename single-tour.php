@@ -106,7 +106,7 @@
                         array_shift($table_prices); // Xóa phần tử đầu tiên (tiêu đề) khỏi mảng
                         ?>
                         <div class="table-responsive">
-                            <?php if (has_term('trekking', 'tour-type', get_the_ID())) : ?>
+                            <?php if (has_term('du-lich-trekking', 'tour-type', get_the_ID())) : ?>
                                 <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
                                     THÔNG TIN YÊU CẦU
                                 </div>
