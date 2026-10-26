@@ -145,3 +145,15 @@ div#booking_tour {
 	position: sticky;
 	top: 0px;
 }
+
+.text {
+	opacity: 0;
+	color: #fff;
+	position: absolute;
+	top: 25% !important;
+	left: 15%;
+	transform: translate(-15%, -15%);
+	-ms-transform: translate(-26%, -26%);
+	font-weight: 400;
+	font-size: 14px;
+}
