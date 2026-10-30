@@ -2,7 +2,7 @@
 get_header();
 
 ?>
-
+<h1>Hello, IT test success!</h1>
 <!-- slider -->
 <div class="slider">
     <div class="owl-carousel owl-one owl-theme">

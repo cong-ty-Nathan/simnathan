@@ -104,42 +104,45 @@
                         //xóa mảng đầu tiên trong table_prices để tránh hiển thị tiêu đề trong phần thân bảng
                         // $table_body = array_shift($table_prices);
                         array_shift($table_prices); // Xóa phần tử đầu tiên (tiêu đề) khỏi mảng
+                        if (is_array($table_prices) && !is_null($table_prices)) :
                         ?>
-                        <div class="table-responsive">
-                            <?php if (has_term('du-lich-trekking', 'tour-type', get_the_ID())) : ?>
-                                <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
-                                    THÔNG TIN YÊU CẦU
-                                </div>
-                            <?php else : ?>
-                                <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
-                                    BÁO GIÁ TOUR KHÁCH ĐOÀN
-                                </div>
-                            <?php endif; ?>
-                            <table class="table table-bordered text-center" style="border: 1px solid #4a90e2; vertical-align: middle;">
-                                <thead style="background-color: #5c93d8; color: #ffffff;">
-                                    <tr>
-                                        <?php foreach ($table_heading__filtered as $key => $value) : ?>
-                                            <th style="width: 40%; vertical-align: middle; border: 1px solid #ffffff;"><?= $value; ?></th>
-                                        <?php endforeach; ?>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    foreach ($table_prices as $key => $row) :
-                                        $filtered_row = array_filter($row, function ($value) {
-                                            return !empty($value) && $value !== "";
-                                        });
-                                    ?>
-                                        <tr style="background-color: #ffb703; color: #000000; font-weight: bold;">
-                                            <?php foreach ($filtered_row as $key => $value) : ?>
-                                                <td style="text-align: left; vertical-align: middle; border: 1px solid #ffffff; padding-left: 15px;"><?= $value; ?></td>
+
+                            <div class="table-responsive">
+                                <?php if (has_term('du-lich-trekking', 'tour-type', get_the_ID())) : ?>
+                                    <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
+                                        THÔNG TIN YÊU CẦU
+                                    </div>
+                                <?php else : ?>
+                                    <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
+                                        BÁO GIÁ TOUR KHÁCH ĐOÀN
+                                    </div>
+                                <?php endif; ?>
+                                <table class="table table-bordered text-center" style="border: 1px solid #4a90e2; vertical-align: middle;">
+                                    <thead style="background-color: #5c93d8; color: #ffffff;">
+                                        <tr>
+                                            <?php foreach ($table_heading__filtered as $key => $value) : ?>
+                                                <th style="width: 40%; vertical-align: middle; border: 1px solid #ffffff;"><?= $value; ?></th>
                                             <?php endforeach; ?>
                                         </tr>
-                                    <?php endforeach;
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($table_prices as $key => $row) :
+                                            $filtered_row = array_filter($row, function ($value) {
+                                                return !empty($value) && $value !== "";
+                                            });
+                                        ?>
+                                            <tr style="background-color: #ffb703; color: #000000; font-weight: bold;">
+                                                <?php foreach ($filtered_row as $key => $value) : ?>
+                                                    <td style="text-align: left; vertical-align: middle; border: 1px solid #ffffff; padding-left: 15px;"><?= $value; ?></td>
+                                                <?php endforeach; ?>
+                                            </tr>
+                                        <?php endforeach;
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php endif; ?>
                         <div class="included-section mb60">
                             <h3 class="mb30">Dịch vụ bao gồm</h3>
                             <div class="row">
