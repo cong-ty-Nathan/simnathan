@@ -155,7 +155,7 @@
                         <div class="takenote-section mb60">
                             <div class="row">
                                 <p>
-                                    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    <a class="btn btn-primary custom-btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                                         Những lưu ý quan trọng
                                     </a>
                                 </p>

@@ -161,3 +161,8 @@ span.wpcf7-form-control-wrap {
 	height: 522px;
 	object-fit: cover;
 }
+
+.custom-btn {
+	width: 100%;
+	border-radius: 12px;
+}
