@@ -98,13 +98,13 @@
                         $table_prices = get_field('table_price', get_the_ID());
                         // Lọc dữ liệu và reset index an toàn
                         if (is_array($table_prices) && !is_null($table_prices)) :
-                        $table_head = $table_prices[0];
-                        $table_heading__filtered = array_filter($table_head, function ($value) {
-                            return !empty($value) && $value !== "";
-                        });
-                        //xóa mảng đầu tiên trong table_prices để tránh hiển thị tiêu đề trong phần thân bảng
-                        // $table_body = array_shift($table_prices);
-                        array_shift($table_prices); // Xóa phần tử đầu tiên (tiêu đề) khỏi mảng
+                            $table_head = $table_prices[0];
+                            $table_heading__filtered = array_filter($table_head, function ($value) {
+                                return !empty($value) && $value !== "";
+                            });
+                            //xóa mảng đầu tiên trong table_prices để tránh hiển thị tiêu đề trong phần thân bảng
+                            // $table_body = array_shift($table_prices);
+                            array_shift($table_prices); // Xóa phần tử đầu tiên (tiêu đề) khỏi mảng
                         ?>
 
                             <div class="table-responsive">
@@ -151,6 +151,22 @@
                                 <?php endif; ?>
                             </div>
                         </div>
+
+                        <div class="takenote-section mb60">
+                            <div class="row">
+                                <p>
+                                    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Những lưu ý quan trọng
+                                    </a>
+                                </p>
+                                <div class="collapse" id="collapseExample">
+                                    <div class="card card-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="reviews-section mb60">
                             <h3 class="mb40">Đánh giá của khách hàng</h3>
                             <?php
