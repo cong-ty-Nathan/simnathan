@@ -97,6 +97,7 @@
                         <?php
                         $table_prices = get_field('table_price', get_the_ID());
                         // Lọc dữ liệu và reset index an toàn
+                        if (is_array($table_prices) && !is_null($table_prices)) :
                         $table_head = $table_prices[0];
                         $table_heading__filtered = array_filter($table_head, function ($value) {
                             return !empty($value) && $value !== "";
@@ -104,7 +105,6 @@
                         //xóa mảng đầu tiên trong table_prices để tránh hiển thị tiêu đề trong phần thân bảng
                         // $table_body = array_shift($table_prices);
                         array_shift($table_prices); // Xóa phần tử đầu tiên (tiêu đề) khỏi mảng
-                        if (is_array($table_prices) && !is_null($table_prices)) :
                         ?>
 
                             <div class="table-responsive">
