@@ -142,6 +142,21 @@
                                 <?php endif; ?>
                             </div>
                         </div>
+                        <?php
+                        $single_tour__excluded = get_field("tour_excluded", get_the_ID());
+                        if (!empty($single_tour__excluded)) :
+                        ?>
+                            <div class="takenote-section mb60">
+                                <a class="btn btn-primary custom-btn" data-toggle="collapse" href="#collapseTourExcluded" role="button" aria-expanded="false" aria-controls="collapseTourExcluded">
+                                    Những lưu ý quan trọng
+                                </a>
+                                <div class="collapse" id="collapseTourExcluded">
+                                    <div class="card card-body">
+                                        <?= $single_tour__excluded; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                         <div class="reviews-section mb60">
                             <h3 class="mb40">Đánh giá của khách hàng</h3>
                             <?php
