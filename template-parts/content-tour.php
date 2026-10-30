@@ -20,7 +20,7 @@ $tour_price   = get_field("tour_price", get_the_ID());
                     <li><?= $tour_hotel; ?></li>
                     <li><?= $tour_meal; ?></li>
                 </ul>
-                <p class="price">$<?= $tour_price; ?></p>
+                <p class="price"><?= $tour_price; ?></p>
                 <a href="<?php the_permalink(); ?>" class="btn-link">Go for <?php the_title(); ?> <i class="fa fa-angle-right"></i></a>
             </div>
         </div>

@@ -300,7 +300,7 @@ function show_comment_rating_column($column_name, $comment_id)
 function custom_tour_archive_query($query)
 {
 	if (! is_admin() && $query->is_main_query() && is_post_type_archive('tour')) {
-		$meta_query = array('relation' => 'AND');
+		$meta_query = array('relation' => 'OR');
 		// 1. Lọc theo Thành phố
 		if (! empty($_GET['country'])) {
 			$tax_query = array(

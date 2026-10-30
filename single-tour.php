@@ -14,6 +14,7 @@
         $single_tour__consultant = get_field("tour_consultant", get_the_ID());
         $single_tour__duration   = get_field("tour_duration", get_the_ID());
         $single_tour__departure_dates = get_field("department_date", get_the_ID());
+        $single_tour__packing = get_field("tour_packing_list", get_the_ID());
         // Lấy tọa độ thời tiết
         $lat = get_field('tour_lat', get_the_ID());
         $lng = get_field('tour_lng', get_the_ID());
@@ -77,119 +78,62 @@
                             <?php endif; ?>
 
                         </div>
-                        <?php
-                        $table_price = get_field('table_price', get_the_ID());
-                        $extra_table_price = get_field('extra_table_price', get_the_ID());
-                        $table_titles = get_field('table_title', get_the_ID());
-                        $has_price_rows = static function ($rows, $price_fields) {
-                            if (!is_array($rows)) {
-                                return false;
-                            }
-
-                            foreach ($rows as $row) {
-                                if (!is_array($row)) {
-                                    continue;
-                                }
-
-                                foreach ($price_fields as $price_field) {
-                                    if (isset($row[$price_field]) && is_scalar($row[$price_field]) && trim((string) $row[$price_field]) !== '') {
-                                        return true;
-                                    }
-                                }
-                            }
-
-                            return false;
-                        };
-                        $get_price_value = static function ($row, $price_fields) {
-                            if (!is_array($row)) {
-                                return '';
-                            }
-
-                            foreach ($price_fields as $price_field) {
-                                if (isset($row[$price_field]) && is_scalar($row[$price_field]) && trim((string) $row[$price_field]) !== '') {
-                                    return $row[$price_field];
-                                }
-                            }
-
-                            return '';
-                        };
-                        $has_table_price = $has_price_rows($table_price, array('departure_date_table', 'adult_price', 'child_price', 'child_price_2_10', 'infant_price', 'infant_price_0_2'));
-                        $uses_extra_table_price = !$has_table_price;
-                        $price_rows = $uses_extra_table_price ? $extra_table_price : $table_price;
-                        $price_headings = array();
-                        if (is_array($table_titles)) {
-                            foreach ($table_titles as $title_index => $title_row) {
-                                $heading = $get_price_value($title_row, array('title'));
-                                $price_headings[$title_index] = $heading !== '' ? $heading : 'Heading';
-                            }
-                        }
-                        $price_columns = array(
-                            array(
-                                'fields' => array('departure_date_table'),
-                                'title_index' => 0,
-                                'weight' => 2,
-                                'is_date' => true,
-                            ),
-                            array(
-                                'fields' => array('adult_price'),
-                                'title_index' => 1,
-                                'weight' => 1,
-                                'is_date' => false,
-                            ),
-                            array(
-                                'fields' => $uses_extra_table_price ? array('child_price_2_10', 'child_price') : array('child_price', 'child_price_2_10'),
-                                'title_index' => 2,
-                                'weight' => 1,
-                                'is_date' => false,
-                            ),
-                            array(
-                                'fields' => $uses_extra_table_price ? array('infant_price_0_2', 'infant_price') : array('infant_price', 'infant_price_0_2'),
-                                'title_index' => 3,
-                                'weight' => 1,
-                                'is_date' => false,
-                            ),
-                        );
-                        $price_columns = array_values(array_filter($price_columns, static function ($column) use ($has_price_rows, $price_rows) {
-                            return $has_price_rows($price_rows, $column['fields']);
-                        }));
-                        $extra_price = get_field('extra_price', get_the_ID());
-                        $total_column_weight = array_sum(array_column($price_columns, 'weight'));
-                        if (!empty($price_columns)) :
-                        ?>
-                            <div class="table-responsive">
-                                <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
-                                    BẢNG GIÁ TOUR (VNĐ)
+                        <?php if (!is_null($single_tour__packing)) : ?>
+                            <section class="tour-packing-section mb60" aria-labelledby="tour-packing-title">
+                                <div class="tour-packing-heading">
+                                    <span class="fa fa-suitcase" aria-hidden="true"></span>
+                                    <div>
+                                        <h3 id="tour-packing-title">Đồ dùng mang theo</h3>
+                                        <p lang="en">What to bring</p>
+                                    </div>
                                 </div>
-                                <table class="table table-bordered text-center" style="border: 1px solid #4a90e2; vertical-align: middle;">
-                                    <thead style="background-color: #5c93d8; color: #ffffff;">
-                                        <tr>
-                                            <?php foreach ($price_columns as $column) : ?>
-                                                <?php $column_width = round($column['weight'] / $total_column_weight * 100, 2); ?>
-                                                <th style="width: <?php echo esc_attr((string) $column_width); ?>%; vertical-align: middle; border: 1px solid #ffffff;">
-                                                    <?php echo wp_kses(isset($price_headings[$column['title_index']]) ? $price_headings[$column['title_index']] : 'Heading', array('br' => array())); ?>
-                                                </th>
+                                <ul class="tour-packing-list">
+                                    <?php foreach ($single_tour__packing as $packing) : ?>
+                                        <?= $packing["item"]; ?>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </section>
+                        <?php endif; ?>
+                        <?php
+                        $table_prices = get_field('table_price', get_the_ID());
+                        // Lọc dữ liệu và reset index an toàn
+                        $table_head = $table_prices[0];
+                        $table_heading__filtered = array_filter($table_head, function ($value) {
+                            return !empty($value) && $value !== "";
+                        });
+                        //xóa mảng đầu tiên trong table_prices để tránh hiển thị tiêu đề trong phần thân bảng
+                        // $table_body = array_shift($table_prices);
+                        array_shift($table_prices); // Xóa phần tử đầu tiên (tiêu đề) khỏi mảng
+                        ?>
+                        <div class="table-responsive">
+                            <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
+                                BẢNG GIÁ TOUR (VNĐ)
+                            </div>
+                            <table class="table table-bordered text-center" style="border: 1px solid #4a90e2; vertical-align: middle;">
+                                <thead style="background-color: #5c93d8; color: #ffffff;">
+                                    <tr>
+                                        <?php foreach ($table_heading__filtered as $key => $value) : ?>
+                                            <th style="width: 40%; vertical-align: middle; border: 1px solid #ffffff;"><?= $value; ?></th>
+                                        <?php endforeach; ?>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($table_prices as $key => $row) :
+                                        $filtered_row = array_filter($row, function ($value) {
+                                            return !empty($value) && $value !== "";
+                                        });
+                                    ?>
+                                        <tr style="background-color: #ffb703; color: #000000; font-weight: bold;">
+                                            <?php foreach ($filtered_row as $key => $value) : ?>
+                                                <td style="text-align: left; vertical-align: middle; border: 1px solid #ffffff; padding-left: 15px;"><?= $value; ?></td>
                                             <?php endforeach; ?>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($price_rows as $row) : ?>
-                                            <tr style="background-color: #ffb703; color: #000000; font-weight: bold;">
-                                                <?php foreach ($price_columns as $column) : ?>
-                                                    <td style="<?php echo $column['is_date'] ? 'text-align: left; padding-left: 15px; ' : ''; ?>vertical-align: middle; border: 1px solid #ffffff;"><?php echo esc_html($get_price_value($row, $column['fields'])); ?></td>
-                                                <?php endforeach; ?>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <?php elseif ($extra_price !== '' && $extra_price !== null) : ?>
-                            <div class="table-responsive">
-                                <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
-                                    GIÁ TOUR (VNĐ)
-                                </div>
-                                <p><?php echo esc_html($extra_price); ?></p>
-                            </div>
-                        <?php endif; ?>
+                                    <?php endforeach;
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="included-section mb60">
                             <h3 class="mb30">Dịch vụ bao gồm</h3>
                             <div class="row">
@@ -271,6 +215,19 @@
                                     <?php do_action('comment_form', get_the_ID()); ?>
                                 </form>
                             </div>
+                            <?php if (isset($single_tour__video) && $single_tour__video !== "") : ?>
+                                <div class="video-section">
+                                    <h3 class="mb30">Video</h3>
+                                    <div class="video-block">
+                                        <div class="video-img">
+                                            <img src="images/video_img.jpg" alt="">
+                                            <a href="#" class="video-btn">
+                                                <img src="images/play_btn.png" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 col-12">
@@ -327,40 +284,8 @@
                         <!-- enguiry-form -->
                         <div class="widget-form" id="booking_tour">
                             <h3 class="text-white mb30"> Đặt tour của bạn</h3>
-                            <?php if (!empty($single_tour__departure_dates) && is_array($single_tour__departure_dates)) : ?>
-                                <div class="tour-departure-dates">
-                                    <h4 class="tour-departure-dates-title">Ngày khởi hành</h4>
-                                    <ul class="tour-departure-dates-list">
-                                        <?php foreach ($single_tour__departure_dates as $departure_date_row) : ?>
-                                            <?php
-                                            $departure_date_value = isset($departure_date_row['date']) ? trim((string) $departure_date_row['date']) : '';
-                                            if ($departure_date_value === '') {
-                                                continue;
-                                            }
-
-                                            $departure_date_object = DateTimeImmutable::createFromFormat('!Ymd', $departure_date_value);
-                                            if (!$departure_date_object) {
-                                                $departure_date_object = DateTimeImmutable::createFromFormat('!d/m/Y', $departure_date_value);
-                                            }
-                                            if (!$departure_date_object) {
-                                                $departure_date_object = DateTimeImmutable::createFromFormat('!Y-m-d', $departure_date_value);
-                                            }
-                                            $departure_date_label = $departure_date_object
-                                                ? $departure_date_object->format('d/m/Y')
-                                                : $departure_date_value;
-                                            ?>
-                                            <li class="tour-departure-date">
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                <span><?php echo esc_html($departure_date_label); ?></span>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </div>
-                            <?php endif; ?>
-
                             <!-- HÀM GỌI CONTACT FORM 7 -->
                             <?php echo do_shortcode('[contact-form-7 id="4ef78d6" title="Booking Tour"]'); ?>
-
                         </div>
                         <!-- /.enguiry-form -->
                         <div id="contact-map" class="widget-map">

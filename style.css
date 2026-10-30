@@ -143,5 +143,23 @@ span.wpcf7-form-control-wrap {
 /* neo sidebar */
 div#booking_tour {
 	position: sticky;
-	top: 0px;
+	top: 150px;
+}
+
+.text {
+	opacity: 0;
+	color: #fff;
+	position: absolute;
+	top: 25% !important;
+	left: 15%;
+	transform: translate(-15%, -15%);
+	-ms-transform: translate(-26%, -26%);
+	font-weight: 400;
+	font-size: 14px;
+}
+
+.desti-img img {
+	max-height: 100% !important;
+	height: 522px;
+	object-fit: cover;
 }
