@@ -32,8 +32,8 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="tour-caption">
                             <h1 class="text-white tour-title"><?php the_title(); ?></h1>
-                            <p class="tour-caption-text text-white"><strong class="tour-rate">$<?= $single_tour__price; ?></strong>( <?= $single_tour__duration; ?> )</p>
-                            <a href="#booking_tour" class="btn btn-primary mb10">Đặt tour</a>
+                            <p class="tour-caption-text text-white"><strong class="tour-rate"><?= $single_tour__price; ?></strong>( <?= $single_tour__duration; ?> )</p>
+                            <button type="button" class="btn btn-primary mb10" data-toggle="modal" data-target="#booking_tour">Đặt tour</button>
                             <a href="#contact-map" class="btn btn-white mb10">Xem bản đồ</a>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                             <?php endif; ?>
 
                         </div>
-                        <?php if (!is_null($single_tour__packing)) : ?>
+                        <?php if (!is_null($single_tour__packing) && !empty($single_tour__packing)) : ?>
                             <section class="tour-packing-section mb60" aria-labelledby="tour-packing-title">
                                 <div class="tour-packing-heading">
                                     <span class="fa fa-suitcase" aria-hidden="true"></span>
@@ -99,6 +99,7 @@
                         <?php
                         $table_prices = get_field('table_price', get_the_ID());
                         // Lọc dữ liệu và reset index an toàn
+                        if (is_array($table_prices) && !is_null($table_prices)) :
                         $table_head = $table_prices[0];
                         $table_heading__filtered = array_filter($table_head, function ($value) {
                             return !empty($value) && $value !== "";
@@ -107,43 +108,49 @@
                         // $table_body = array_shift($table_prices);
                         array_shift($table_prices); // Xóa phần tử đầu tiên (tiêu đề) khỏi mảng
                         ?>
-                        <div class="table-responsive">
-                            <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
-                                BẢNG GIÁ TOUR (VNĐ)
-                            </div>
-                            <table class="table table-bordered text-center" style="border: 1px solid #4a90e2; vertical-align: middle;">
-                                <thead style="background-color: #5c93d8; color: #ffffff;">
-                                    <tr>
-                                        <?php foreach ($table_heading__filtered as $key => $value) : ?>
-                                            <th style="width: 40%; vertical-align: middle; border: 1px solid #ffffff;"><?= $value; ?></th>
-                                        <?php endforeach; ?>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    foreach ($table_prices as $key => $row) :
-                                        $filtered_row = array_filter($row, function ($value) {
-                                            return !empty($value) && $value !== "";
-                                        });
-                                    ?>
-                                        <tr style="background-color: #ffb703; color: #000000; font-weight: bold;">
-                                            <?php foreach ($filtered_row as $key => $value) : ?>
-                                                <td style="text-align: left; vertical-align: middle; border: 1px solid #ffffff; padding-left: 15px;"><?= $value; ?></td>
+
+                            <div class="table-responsive">
+                                <?php if (has_term('du-lich-trekking', 'tour-type', get_the_ID())) : ?>
+                                    <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
+                                        THÔNG TIN YÊU CẦU
+                                    </div>
+                                <?php else : ?>
+                                    <div style="text-align: right; color: #cc0000; font-weight: bold; font-size: 14px; margin-bottom: 5px;">
+                                        BÁO GIÁ TOUR KHÁCH ĐOÀN
+                                    </div>
+                                <?php endif; ?>
+                                <table class="table table-bordered text-center" style="border: 1px solid #4a90e2; vertical-align: middle;">
+                                    <thead style="background-color: #5c93d8; color: #ffffff;">
+                                        <tr>
+                                            <?php foreach ($table_heading__filtered as $key => $value) : ?>
+                                                <th style="width: 40%; vertical-align: middle; border: 1px solid #ffffff;"><?= $value; ?></th>
                                             <?php endforeach; ?>
                                         </tr>
-                                    <?php endforeach;
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <?php if (!empty($single_tour__included)) : ?>
-                            <div class="included-section mb60">
-                                <h3 class="mb30">Dịch vụ bao gồm</h3>
-                                <div class="row">
-                                    <?php if (!empty($single_tour__included)) : ?>
-                                        <?= $single_tour__included; ?>
-                                    <?php endif; ?>
-                                </div>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($table_prices as $key => $row) :
+                                            $filtered_row = array_filter($row, function ($value) {
+                                                return !empty($value) && $value !== "";
+                                            });
+                                        ?>
+                                            <tr style="background-color: #ffb703; color: #000000; font-weight: bold;">
+                                                <?php foreach ($filtered_row as $key => $value) : ?>
+                                                    <td style="text-align: left; vertical-align: middle; border: 1px solid #ffffff; padding-left: 15px;"><?= $value; ?></td>
+                                                <?php endforeach; ?>
+                                            </tr>
+                                        <?php endforeach;
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php endif; ?>
+                        <div class="included-section mb60">
+                            <h3 class="mb30">Dịch vụ bao gồm</h3>
+                            <div class="row">
+                                <?php if (!empty($single_tour__included)) : ?>
+                                    <?= $single_tour__included; ?>
+                                <?php endif; ?>
                             </div>
                         <?php endif; ?>
                         <?php if (!empty($single_tour__excluded)) : ?>
@@ -242,14 +249,11 @@
                                 </form>
                             </div>
                             <?php if (isset($single_tour__video) && $single_tour__video !== "") : ?>
-                                <div class="video-section">
+                                <div class="video-section mt-3">
                                     <h3 class="mb30">Video</h3>
                                     <div class="video-block">
                                         <div class="video-img">
-                                            <img src="images/video_img.jpg" alt="">
-                                            <a href="#" class="video-btn">
-                                                <img src="images/play_btn.png" alt="">
-                                            </a>
+                                            <?= $single_tour__video; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -308,10 +312,16 @@
                             <?php endif; ?>
                         </div>
                         <!-- enguiry-form -->
-                        <div class="widget-form" id="booking_tour">
-                            <h3 class="text-white mb30"> Đặt tour của bạn</h3>
-                            <!-- HÀM GỌI CONTACT FORM 7 -->
-                            <?php echo do_shortcode('[contact-form-7 id="4ef78d6" title="Booking Tour"]'); ?>
+                        <div class="modal fade tour-booking-modal" id="booking_tour" tabindex="-1" role="dialog" aria-labelledby="booking-tour-title" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content widget-form">
+                                    <button type="button" class="close tour-booking-modal-close" data-dismiss="modal" aria-label="Đóng">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h3 class="text-white mb30" id="booking-tour-title">Đặt tour của bạn</h3>
+                                    <?php echo do_shortcode('[contact-form-7 id="4ef78d6" title="Booking Tour"]'); ?>
+                                </div>
+                            </div>
                         </div>
                         <!-- /.enguiry-form -->
                         <div id="contact-map" class="widget-map">

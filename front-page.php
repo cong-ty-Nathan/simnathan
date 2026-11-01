@@ -2,7 +2,6 @@
 get_header();
 
 ?>
-
 <!-- slider -->
 <div class="slider">
     <div class="owl-carousel owl-one owl-theme">
