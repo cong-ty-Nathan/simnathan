@@ -183,7 +183,7 @@ div#booking_tour {
 	align-items: center;
 	justify-content: center;
 	border-radius: 50%;
-	background-color: #28a745;
+	/* background-color: #28a745; */
 	color: #fff;
 	content: "\f107";
 	font-family: FontAwesome;

@@ -9,6 +9,8 @@
         $single_tour__gallery    = get_field("tour_gallery", get_the_ID());
         $single_tour__journey    = get_field("tour_journey", get_the_ID());
         $single_tour__included   = get_field("tour_included", get_the_ID());
+        $single_tour__excluded   = get_field("tour_excluded", get_the_ID());
+        $single_tour__terms = get_field("tour_terms", get_the_ID());
         $single_tour__video      = get_field("tour_video", get_the_ID());
         $single_tour__map        = get_field("tour_map", get_the_ID());
         $single_tour__consultant = get_field("tour_consultant", get_the_ID());
@@ -134,25 +136,34 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="included-section mb60">
-                            <h3 class="mb30">Dịch vụ bao gồm</h3>
-                            <div class="row">
-                                <?php if (!empty($single_tour__included)) : ?>
-                                    <?= $single_tour__included; ?>
-                                <?php endif; ?>
+                        <?php if (!empty($single_tour__included)) : ?>
+                            <div class="included-section mb60">
+                                <h3 class="mb30">Dịch vụ bao gồm</h3>
+                                <div class="row">
+                                    <?php if (!empty($single_tour__included)) : ?>
+                                        <?= $single_tour__included; ?>
+                                    <?php endif; ?>
+                                </div>
                             </div>
-                        </div>
-                        <?php
-                        $single_tour__excluded = get_field("tour_excluded", get_the_ID());
-                        if (!empty($single_tour__excluded)) :
-                        ?>
+                        <?php endif; ?>
+                        <?php if (!empty($single_tour__excluded)) : ?>
+                            <div class="included-section excluded-section mb60">
+                                <h3 class="mb30">Dịch vụ không bao gồm</h3>
+                                <div class="row">
+                                    <?php if (!empty($single_tour__excluded)) : ?>
+                                        <?= $single_tour__excluded; ?>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (!empty($single_tour__terms)) : ?>
                             <div class="takenote-section mb60">
-                                <a class="btn btn-primary custom-btn" data-toggle="collapse" href="#collapseTourExcluded" role="button" aria-expanded="false" aria-controls="collapseTourExcluded">
+                                <a class="btn btn-primary custom-btn" data-toggle="collapse" href="#collapseTourTerms" role="button" aria-expanded="false" aria-controls="collapseTourTerms">
                                     Những lưu ý quan trọng
                                 </a>
-                                <div class="collapse" id="collapseTourExcluded">
+                                <div class="collapse" id="collapseTourTerms">
                                     <div class="card card-body">
-                                        <?= $single_tour__excluded; ?>
+                                        <?= $single_tour__terms; ?>
                                     </div>
                                 </div>
                             </div>

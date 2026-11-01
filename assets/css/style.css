@@ -2609,6 +2609,10 @@ html {
   color: #3d0f82;
 }
 
+.included-section.excluded-section .arrow li:before {
+  content: '\f00d';
+}
+
 .reviews-section {}
 
 .review-block {
