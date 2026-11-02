@@ -100,13 +100,13 @@
                         $table_prices = get_field('table_price', get_the_ID());
                         // Lọc dữ liệu và reset index an toàn
                         if (is_array($table_prices) && !is_null($table_prices)) :
-                        $table_head = $table_prices[0];
-                        $table_heading__filtered = array_filter($table_head, function ($value) {
-                            return !empty($value) && $value !== "";
-                        });
-                        //xóa mảng đầu tiên trong table_prices để tránh hiển thị tiêu đề trong phần thân bảng
-                        // $table_body = array_shift($table_prices);
-                        array_shift($table_prices); // Xóa phần tử đầu tiên (tiêu đề) khỏi mảng
+                            $table_head = $table_prices[0];
+                            $table_heading__filtered = array_filter($table_head, function ($value) {
+                                return !empty($value) && $value !== "";
+                            });
+                            //xóa mảng đầu tiên trong table_prices để tránh hiển thị tiêu đề trong phần thân bảng
+                            // $table_body = array_shift($table_prices);
+                            array_shift($table_prices); // Xóa phần tử đầu tiên (tiêu đề) khỏi mảng
                         ?>
 
                             <div class="table-responsive">
@@ -152,7 +152,7 @@
                                     <?= $single_tour__included; ?>
                                 <?php endif; ?>
                             </div>
-                        <?php endif; ?>
+                        <div>
                         <?php if (!empty($single_tour__excluded)) : ?>
                             <div class="included-section excluded-section mb60">
                                 <h3 class="mb30">Dịch vụ không bao gồm</h3>
