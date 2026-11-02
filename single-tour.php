@@ -152,7 +152,7 @@
                                     <?= $single_tour__included; ?>
                                 <?php endif; ?>
                             </div>
-                        <?php endif; ?>
+                        <div>
                         <?php if (!empty($single_tour__excluded)) : ?>
                             <div class="included-section excluded-section mb60">
                                 <h3 class="mb30">Dịch vụ không bao gồm</h3>
