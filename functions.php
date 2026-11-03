@@ -296,6 +296,12 @@ function show_comment_rating_column($column_name, $comment_id)
 	}
 }
 
+function prevent_html_in_comments( $commentdata ) {
+    $commentdata['comment_content'] = esc_html( $commentdata['comment_content'] );
+    return $commentdata;
+}
+add_filter( 'preprocess_comment', 'prevent_html_in_comments', 10, 1 );
+
 
 function custom_tour_archive_query($query)
 {
