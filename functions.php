@@ -560,7 +560,7 @@ add_action('wp_footer', function() {
     <style>
     .fixed-contact-buttons {
         position: fixed;
-        bottom: 24px;
+        bottom: 80px;
         right: 24px;
         z-index: 99999;
         display: flex;
