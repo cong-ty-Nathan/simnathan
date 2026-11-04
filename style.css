@@ -198,3 +198,13 @@ span.wpcf7-form-control-wrap {
 	width: 100%;
 	border-radius: 0 0 12px 12px;
 }
+
+
+.client-logo img {
+    width: 100px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: auto;
+}
