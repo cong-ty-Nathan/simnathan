@@ -48,29 +48,31 @@ get_header();
                 <!-- form -->
                 <form action="<?= get_post_type_archive_link('tour'); ?>" method="GET">
                     <div class="row">
+                        <!-- Ô 1: Tìm kiếm tên tour -->
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-3 col-12">
                             <div class="form-group">
-                                <label class="control-label sr-only" for="select"></label>
-                                <div class="select">
-                                    <select id="select" name="country" class="form-control">
-                                        <option value="">Bạn dự định đi đâu?</option>
-                                        <option value="viet-nam">Việt Nam</option>
-                                        <option value="trung-quoc">Trung Quốc</option>
-
-                                    </select>
+                                <label class="control-label sr-only" for="keyword">Tên tour</label>
+                                <div class="input-group">
+                                    <input id="keyword" name="keyword" type="text" placeholder="Nhập tên tour" value="<?php echo esc_attr(isset($_GET['keyword']) && is_string($_GET['keyword']) ? sanitize_text_field(wp_unslash($_GET['keyword'])) : ''); ?>" class="form-control">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Ô 2: Ngày khởi hành -->
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-3 col-12">
                             <div class="form-group">
-                                <label class="control-label sr-only" for="datepicker"></label>
+                                <label class="control-label sr-only" for="datepicker">Ngày khởi hành</label>
                                 <div class="input-group">
-                                    <input id="datepicker" name="datepicker" type="text" placeholder="Ngày khởi hành" class="form-control">
+                                    <input id="datepicker" name="datepicker" type="text" placeholder="Ngày khởi hành" value="<?php echo esc_attr(isset($_GET['datepicker']) && is_string($_GET['datepicker']) ? sanitize_text_field(wp_unslash($_GET['datepicker'])) : ''); ?>" class="form-control">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
                         </div>
+
                         <input type="hidden" name="post_type" value="tour">
+
+                        <!-- Nút Submit -->
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-3 col-12">
                             <button type="submit" class="btn btn-primary btn-lg">Enquiry Now</button>
                         </div>
