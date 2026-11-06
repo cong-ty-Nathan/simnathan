@@ -194,17 +194,21 @@ span.wpcf7-form-control-wrap {
 	transform: translateY(-50%) rotate(180deg);
 }
 
-.takenote-section .collapse > .card {
+.takenote-section .collapse>.card {
 	width: 100%;
 	border-radius: 0 0 12px 12px;
 }
 
 
 .client-logo img {
-    width: 100px;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    aspect-ratio: auto;
+	width: 100px;
+	height: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	aspect-ratio: auto;
+}
+
+.feature-left {
+	display: flex;
 }
