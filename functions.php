@@ -305,36 +305,36 @@ add_filter( 'preprocess_comment', 'prevent_html_in_comments', 10, 1 );
 
 function custom_tour_archive_query($query)
 {
-	if (! is_admin() && $query->is_main_query() && is_post_type_archive('tour')) {
-		$meta_query = array('relation' => 'OR');
-		// 1. Lọc theo Thành phố
-		if (! empty($_GET['country'])) {
-			$tax_query = array(
-				array(
-					'taxonomy' => 'country',
-					'field' => 'slug',
-					'terms' => sanitize_text_field($_GET['country']),
-				),
-			);
-			$query->set('tax_query', $tax_query);
-		}
+    if (!is_admin() && $query->is_main_query() && is_post_type_archive('tour')) {
 
-		//2. Lọc the ngày
-		if (isset($_GET['datepicker']) && is_string($_GET['datepicker']) && $_GET['datepicker'] !== '') {
-			$date_input = sanitize_text_field($_GET['datepicker']);
-			$date_timestamp = strtotime($date_input);
-			if ($date_timestamp !== false) {
-				$meta_query[] = array(
-					'key' => 'department_date_',
-					'compare_key' => 'LIKE',
-					'value' => date('Ymd', $date_timestamp),
-					'compare' => '=',
-				);
-			}
-		}
-		//Cập nhật lại meta_query cho Query chính của wordpress
-		$query->set('meta_query', $meta_query);
-	}
+        // Search tour titles/content only when a keyword was provided.
+        if (isset($_GET['keyword']) && is_string($_GET['keyword'])) {
+            $keyword = trim(sanitize_text_field(wp_unslash($_GET['keyword'])));
+            if ($keyword !== '') {
+                $query->set('s', $keyword);
+            }
+        }
+
+        // Add a date condition only when a non-empty, valid date was provided.
+        if (isset($_GET['datepicker']) && is_string($_GET['datepicker'])) {
+            $date_input = trim(sanitize_text_field(wp_unslash($_GET['datepicker'])));
+            $date_timestamp = strtotime($date_input);
+
+            if ($date_input !== '' && $date_timestamp !== false) {
+                $meta_query = array();
+                $meta_query[] = array(
+                    'key'         => 'department_date_',
+                    'compare_key' => 'LIKE',
+                    'value'       => date('Ymd', $date_timestamp),
+                    'compare'     => '=',
+                );
+            }
+        }
+
+        if (!empty($meta_query)) {
+            $query->set('meta_query', $meta_query);
+        }
+    }
 }
 add_action('pre_get_posts', 'custom_tour_archive_query');
 
