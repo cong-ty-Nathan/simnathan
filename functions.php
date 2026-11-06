@@ -296,6 +296,13 @@ function show_comment_rating_column($column_name, $comment_id)
 	}
 }
 
+function prevent_html_in_comments( $commentdata ) {
+    $commentdata['comment_content'] = esc_html( $commentdata['comment_content'] );
+    return $commentdata;
+}
+add_filter( 'preprocess_comment', 'prevent_html_in_comments', 10, 1 );
+
+
 function custom_tour_archive_query($query)
 {
     if (!is_admin() && $query->is_main_query() && is_post_type_archive('tour')) {
@@ -545,3 +552,82 @@ function get_weather_info($code)
 			return ['text' => 'Bình thường', 'icon' => '🌡️'];
 	}
 }
+
+
+//add contact icon
+add_action('wp_footer', function() {
+    ?>
+    <style>
+    .fixed-contact-buttons {
+        position: fixed;
+        bottom: 80px;
+        right: 24px;
+        z-index: 99999;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+    .contact-btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .contact-btn:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+    .contact-btn.phone-btn {
+        background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+    }
+    .contact-btn.zalo-btn {
+        background: linear-gradient(135deg, #0088FF 0%, #0052CC 100%);
+    }
+    .contact-btn.messenger-btn {
+        background: linear-gradient(135deg, #00B2FF 0%, #006AFF 100%);
+    }
+    .contact-btn.phone-btn::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 2px solid #10B981;
+        animation: phone-pulse 2s infinite;
+        pointer-events: none;
+    }
+    @keyframes phone-pulse {
+        0% { transform: scale(1); opacity: 0.8; }
+        100% { transform: scale(1.5); opacity: 0; }
+    }
+    .contact-btn svg {
+        width: 26px;
+        height: 26px;
+        fill: #ffffff;
+    }
+    @media (max-width: 768px) {
+        .fixed-contact-buttons { bottom: 16px; right: 16px; gap: 10px; }
+        .contact-btn { width: 46px; height: 46px; }
+        .contact-btn svg { width: 22px; height: 22px; }
+    }
+    </style>
+
+    <div class="fixed-contact-buttons">
+        <a href="tel:0708375980" class="contact-btn phone-btn" title="Gọi hotline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        </a>
+        <a href="https://zalo.me/0708375980" target="_blank" rel="noopener noreferrer" class="contact-btn zalo-btn" title="Chat Zalo">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M24 4C12.95 4 4 12.95 4 24c0 4.14 1.28 7.98 3.47 11.14L5.5 41.5l6.68-1.83C15.58 41.92 19.64 43 24 43c11.05 0 20-8.95 20-20S35.05 4 24 4zm-4.71 23.32c-.39.54-1.07.78-1.74.61-.83-.21-1.38-1.01-1.29-1.87.11-1.01.69-2.09 1.6-2.91 1.01-.91 2.26-1.55 3.63-1.84.7-.15 1.43.19 1.74.83.31.64.14 1.42-.42 1.91l-1.05.93c-.32.28-.78.36-1.18.2-1.04-.41-2.02-.99-2.9-1.73-.34-.29-.82-.29-1.16 0-.34.29-.34.78 0 1.07.99.85 2.1 1.51 3.3 1.95.46.17.77.63.74 1.13-.03.5-.41.91-.91.95-.59.05-1.16-.14-1.58-.51z" fill="#fff"/></svg>
+        </a>
+        <a href="https://m.me/1345740091964074" target="_blank" rel="noopener noreferrer" class="contact-btn messenger-btn" title="Chat Messenger" aria-label="Chat Messenger">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2C6.48 2 2 6.16 2 11.29c0 2.92 1.42 5.52 3.64 7.22V22l3.33-1.83c.96.27 1.98.42 3.03.42 5.52 0 10-4.16 10-9.29S17.52 2 12 2zm1.02 12.51-2.55-2.72-4.97 2.72 5.47-5.81 2.61 2.72 4.91-2.72-5.47 5.81z"/></svg>
+        </a>
+    </div>
+    <?php
+});
