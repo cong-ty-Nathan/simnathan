@@ -212,3 +212,7 @@ span.wpcf7-form-control-wrap {
 .feature-left {
 	display: flex;
 }
+
+.recent-post {
+	display: flex;
+}
