@@ -216,3 +216,10 @@ span.wpcf7-form-control-wrap {
 .recent-post {
 	display: flex;
 }
+
+@media (min-width: 992px) {
+	.tour-sidebar {
+		position: sticky;
+		top: 180px;
+	}
+}
