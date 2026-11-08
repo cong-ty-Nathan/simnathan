@@ -1,5 +1,10 @@
 <?php get_header(); ?>
 
+<?php
+$selected_tour_sort = isset($_GET['tour_sort']) && is_string($_GET['tour_sort'])
+    ? sanitize_key(wp_unslash($_GET['tour_sort']))
+    : '';
+?>
 
 <!-- page-header -->
 <div class="page-header">
@@ -18,6 +23,8 @@
 <div class="content">
     <div class="container">
         <div class="row">
+            
+
             <?php if (have_posts()) : ?>
                 <?php while (have_posts()) : the_post(); ?>
                     <?php get_template_part('template-parts/content', 'tour'); ?>
