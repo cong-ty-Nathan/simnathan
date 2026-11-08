@@ -334,6 +334,16 @@ function custom_tour_archive_query($query)
 		}
 		//Cập nhật lại meta_query cho Query chính của wordpress
 		$query->set('meta_query', $meta_query);
+
+		$tour_sort = isset($_GET['tour_sort']) && is_string($_GET['tour_sort'])
+			? sanitize_key(wp_unslash($_GET['tour_sort']))
+			: '';
+
+		if ('price_asc' === $tour_sort || 'price_desc' === $tour_sort) {
+			$query->set('meta_key', 'tour_price');
+			$query->set('orderby', 'meta_value_num');
+			$query->set('order', 'price_asc' === $tour_sort ? 'ASC' : 'DESC');
+		}
 	}
 }
 add_action('pre_get_posts', 'custom_tour_archive_query');
