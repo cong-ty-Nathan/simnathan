@@ -1,5 +1,19 @@
 <?php get_header(); ?>
 
+<style>
+    .tour-sidebar-column {
+        position: sticky;
+        top: 24px;
+        align-self: flex-start;
+    }
+
+    @media (max-width: 767.98px) {
+        .tour-sidebar-column {
+            position: static;
+        }
+    }
+</style>
+
 <?php if (have_posts()): ?>
     <?php while (have_posts()) : the_post(); ?>
         <?php
@@ -260,7 +274,7 @@
                             <?php endif; ?>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 col-12">
+                    <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 col-12 tour-sidebar-column">
                         <!-- WIDGET THỜI TIẾT TẠI ĐIỂM ĐẾN -->
                         <?php if (isset($lat) && isset($lng)) :
                             $weather = get_tour_weather($lat, $lng);
