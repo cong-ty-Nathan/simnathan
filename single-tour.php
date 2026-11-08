@@ -270,12 +270,7 @@
                             <?php endif; ?>
                         </div>
                     </div>
-<<<<<<< HEAD
-                    <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 col-12">
-                        <div class="tour-sidebar">
-=======
                     <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 col-12 tour-sidebar-column">
->>>>>>> main
                         <!-- WIDGET THỜI TIẾT TẠI ĐIỂM ĐẾN -->
                         <?php if (isset($lat) && isset($lng)) :
                             $weather = get_tour_weather($lat, $lng);
