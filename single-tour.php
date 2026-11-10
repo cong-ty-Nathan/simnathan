@@ -325,23 +325,22 @@
                                 <?= $single_tour__consultant ?>
                             <?php endif; ?>
                         </div>
-                        <!-- enguiry-form -->
-                        <div class="modal fade tour-booking-modal" id="booking_tour" tabindex="-1" role="dialog" aria-labelledby="booking-tour-title" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content widget-form">
-                                    <button type="button" class="close tour-booking-modal-close" data-dismiss="modal" aria-label="Đóng">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h3 class="text-white mb30" id="booking-tour-title">Đặt tour của bạn</h3>
-                                    <?php echo do_shortcode('[contact-form-7 id="4ef78d6" title="Booking Tour"]'); ?>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.enguiry-form -->
                         <div id="contact-map" class="widget-map">
                             <?= $single_tour__map; ?>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- Booking modal must stay outside the sticky sidebar stacking context. -->
+        <div class="modal fade tour-booking-modal" id="booking_tour" tabindex="-1" role="dialog" aria-labelledby="booking-tour-title" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content widget-form">
+                    <button type="button" class="close tour-booking-modal-close" data-dismiss="modal" aria-label="Đóng">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="text-white mb30" id="booking-tour-title">Đặt tour của bạn</h3>
+                    <?php echo do_shortcode('[contact-form-7 id="4ef78d6" title="Booking Tour"]'); ?>
                 </div>
             </div>
         </div>
