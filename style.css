@@ -217,9 +217,4 @@ span.wpcf7-form-control-wrap {
 	display: flex;
 }
 
-@media (min-width: 992px) {
-	.tour-sidebar {
-		position: sticky;
-		top: 180px;
-	}
-}
+
