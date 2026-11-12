@@ -210,20 +210,6 @@ get_header();
     $about_left_col = get_field("about_column_left");
     $about_right_col = get_field("about_column_right");
 
-    // Lấy số liệu động cho 3 chỉ số
-    $total_tours = wp_count_posts('tour')->publish; // Tổng số tour đã xuất bản
-
-    // Tính tổng số lượng (hoặc đếm số lượng) của tour-type
-    $tour_types_count = wp_count_terms(array(
-        'taxonomy' => 'tour-type',
-        'hide_empty' => false,
-    ));
-
-    // Tính tổng số lượng (hoặc đếm số lượng) của countries (nếu tên taxonomy của bạn là 'country')
-    $countries_count = wp_count_terms(array(
-        'taxonomy' => 'country',
-        'hide_empty' => false,
-    ));
     ?>
     <div class="container">
         <!-- about-head -->
@@ -259,39 +245,21 @@ get_header();
                 </div>
             </div>
             <!-- /.feature-section -->
-            
-            <!-- counter-section (Đã cập nhật dữ liệu động) -->
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 ">
                 <div class="well-block">
-                    <!-- Ô 1: Tổng số Tours -->
-                    <div class="counter-block">
-                        <h1 class="counter-numbers"><?= esc_html($total_tours); ?>+</h1>
-                        <div class="counter-content">
-                            <h4>Tours</h4>
-                            <p>Tự do lựa chọn chuyến đi mơ ước với hệ thống hơn hành trình đa dạng.</p>
-                        </div>
-                    </div>
-
-                    <!-- Ô 2: Tổng số loại Tour (tour-type) hoặc số liệu tùy biến -->
-                    <div class="counter-block">
-                        <h1 class="counter-numbers"><?= esc_html(!is_wp_error($tour_types_count) ? $tour_types_count : 0); ?>+</h1>
-                        <div class="counter-content">
-                            <h4>Loại hình Tour</h4>
-                            <p>Khám phá các phong cách du lịch đa dạng phù hợp với mọi sở thích.</p>
-                        </div>
-                    </div>
-
-                    <!-- Ô 3: Tổng số Quốc gia (countries) -->
-                    <div class="counter-block">
-                        <h1 class="counter-numbers"><?= esc_html(!is_wp_error($countries_count) ? $countries_count : 0); ?>+</h1>
-                        <div class="counter-content">
-                            <h4>Quốc gia</h4>
-                            <p>Dễ dàng vi vu và giữ liên lạc liên tục tại hơn quốc gia trên thế giới.</p>
-                        </div>
-                    </div>
+                    <?php if (!is_null($about_right_col)): ?>
+                        <?php foreach ($about_right_col as $col): ?>
+                            <div class="counter-block">
+                                <h1 class="counter-numbers"><?= esc_html($col['count_number']); ?></h1>
+                                <div class="counter-content">
+                                    <h4><?= esc_html($col['title']); ?></h4>
+                                    <p><?= esc_html($col['meta']); ?></p>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
-            <!-- /.counter-section -->
         </div>
     </div>
 </div>

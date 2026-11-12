@@ -28,7 +28,7 @@ get_header();
                 <div class="row">
                     <?php if ( have_posts() ) : ?>
                         <?php while ( have_posts() ) : the_post(); ?>
-                            <?php get_template_part( 'template-parts/content', 'post' ); ?>
+                            <?php get_template_part( 'template-parts/content', 'search' ); ?>
                         <?php endwhile; ?>
                     <?php else : ?>
                         <div class="col-12">
