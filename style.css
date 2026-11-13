@@ -217,4 +217,7 @@ span.wpcf7-form-control-wrap {
 	display: flex;
 }
 
-
+.anchor-link {
+	color: #007bff !important; 
+	font-weight: bold;
+}
