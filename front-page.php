@@ -247,17 +247,32 @@ get_header();
             <!-- /.feature-section -->
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 ">
                 <div class="well-block">
-                    <?php if (!is_null($about_right_col)): ?>
-                        <?php foreach ($about_right_col as $col): ?>
-                            <div class="counter-block">
-                                <h1 class="counter-numbers"><?= esc_html($col['count_number']); ?></h1>
-                                <div class="counter-content">
-                                    <h4><?= esc_html($col['title']); ?></h4>
-                                    <p><?= esc_html($col['meta']); ?></p>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
+                    <div class="counter-block">
+                        <h1 class="counter-numbers">
+                            <?php
+                            $tour_count = wp_count_posts('tour')->publish;
+                            echo esc_html($tour_count);
+                            ?>
+                        </h1>
+                        <div class="counter-content">
+                            <h4>Tours</h4>
+                            <p>Tự do lựa chọn chuyến đi mơ ước với hệ thống hơn 689+ hành trình đa dạng</p>
+                        </div>
+                    </div>
+                    <div class="counter-block">
+                        <h1 class="counter-numbers">320+</h1>
+                        <div class="counter-content">
+                            <h4>Destinations</h4>
+                            <p>Pellentesque luctus felisnon nib its consecteuis.</p>
+                        </div>
+                    </div>
+                    <div class="counter-block">
+                        <h1 class="counter-numbers">60+</h1>
+                        <div class="counter-content">
+                            <h4>Countries</h4>
+                            <p>Sed gravida eleequenec fringilla dolonteger.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
