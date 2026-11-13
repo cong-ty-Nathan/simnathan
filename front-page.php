@@ -118,6 +118,9 @@ get_header();
                 // Lấy ACF fields nếu có
                 $term_image = get_field('tour_type_image', $term);
                 $term_link = get_term_link($term);
+                if (is_wp_error($term_link)) {
+                    continue;
+                }
 
                 // Nếu không có fields, dùng giá trị mặc định
                 $image_url = !empty($term_image) ? esc_url($term_image['url']) : get_template_directory_uri() . '/assets/images/tour_img_1.jpg';

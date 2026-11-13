@@ -117,6 +117,166 @@ function travelme_setup()
 	require_once get_template_directory() . '/inc/acf-func.php';
 }
 add_action('after_setup_theme', 'travelme_setup');
+
+/**
+ * Remove the rewrite base from public taxonomy term links.
+ */
+function travelme_remove_taxonomy_base_from_term_link($url, $term, $taxonomy)
+{
+	if (is_object($term) && isset($term->taxonomy)) {
+		$taxonomy = $term->taxonomy;
+	}
+
+	$taxonomy_object = get_taxonomy($taxonomy);
+
+	if (!$taxonomy_object || !$taxonomy_object->public || !$taxonomy_object->publicly_queryable || empty($taxonomy_object->rewrite)) {
+		return $url;
+	}
+
+	$rewrite_slug = trim($taxonomy_object->rewrite['slug'] ?? $taxonomy, '/');
+	if ($rewrite_slug === '') {
+		return $url;
+	}
+
+	global $wp_rewrite;
+	$front = !empty($taxonomy_object->rewrite['with_front']) ? $wp_rewrite->front : '';
+	$taxonomy_base = trailingslashit(home_url($front . $rewrite_slug));
+	if (strpos($url, $taxonomy_base) !== 0) {
+		return $url;
+	}
+
+	return home_url($front . ltrim(substr($url, strlen($taxonomy_base)), '/'));
+}
+add_filter('term_link', 'travelme_remove_taxonomy_base_from_term_link', 10, 3);
+
+/**
+ * Find a public taxonomy term using its base-free URL path.
+ */
+function travelme_find_taxonomy_term_by_path($path)
+{
+	$path = trim(rawurldecode($path), '/');
+	if ($path === '') {
+		return null;
+	}
+
+	$segments = explode('/', $path);
+	$last_segment = end($segments);
+	$matches = array();
+
+	foreach (get_taxonomies(array('public' => true), 'objects') as $taxonomy_name => $taxonomy_object) {
+		if (!$taxonomy_object->publicly_queryable || empty($taxonomy_object->rewrite)) {
+			continue;
+		}
+
+		if (!$taxonomy_object->hierarchical && count($segments) !== 1) {
+			continue;
+		}
+
+		$terms = get_terms(array(
+			'taxonomy'   => $taxonomy_name,
+			'slug'       => $last_segment,
+			'hide_empty' => false,
+		));
+		if (is_wp_error($terms) || empty($terms)) {
+			continue;
+		}
+
+		foreach ($terms as $term) {
+			if ($taxonomy_object->hierarchical) {
+				$ancestor_ids = array_reverse(get_ancestors($term->term_id, $taxonomy_name, 'taxonomy'));
+				$term_path = array();
+
+				foreach ($ancestor_ids as $ancestor_id) {
+					$ancestor = get_term($ancestor_id, $taxonomy_name);
+					if (!$ancestor || is_wp_error($ancestor)) {
+						continue 2;
+					}
+					$term_path[] = $ancestor->slug;
+				}
+
+				$term_path[] = $term->slug;
+				if (implode('/', $term_path) !== $path) {
+					continue;
+				}
+			}
+
+			$matches[] = array(
+				'taxonomy' => $taxonomy_object,
+				'term'     => $term,
+			);
+		}
+	}
+
+	return count($matches) === 1 ? $matches[0] : null;
+}
+
+/**
+ * Register a fallback route and resolve it only when it matches one taxonomy term.
+ */
+function travelme_register_short_taxonomy_routes()
+{
+	add_rewrite_tag('%travelme_taxonomy_path%', '(.+)');
+	add_rewrite_rule('^(.+?)/?$', 'index.php?travelme_taxonomy_path=$matches[1]', 'bottom');
+
+	if (get_option('travelme_short_taxonomy_rewrite_version') !== '1') {
+		flush_rewrite_rules(false);
+		update_option('travelme_short_taxonomy_rewrite_version', '1');
+	}
+}
+add_action('init', 'travelme_register_short_taxonomy_routes', 20);
+
+function travelme_add_short_taxonomy_query_var($query_vars)
+{
+	$query_vars[] = 'travelme_taxonomy_path';
+	return $query_vars;
+}
+add_filter('query_vars', 'travelme_add_short_taxonomy_query_var');
+
+function travelme_resolve_short_taxonomy_request($query_vars)
+{
+	$path = $query_vars['travelme_taxonomy_path'] ?? $query_vars['pagename'] ?? $query_vars['name'] ?? '';
+	if (!is_string($path) || $path === '') {
+		return $query_vars;
+	}
+
+	$post_types = get_post_types(array('public' => true));
+	if (get_page_by_path($path, OBJECT, $post_types)) {
+		unset($query_vars['travelme_taxonomy_path']);
+		if (!empty($query_vars['pagename']) || !empty($query_vars['name'])) {
+			return $query_vars;
+		}
+		$query_vars['pagename'] = $path;
+		return $query_vars;
+	}
+
+	$match = travelme_find_taxonomy_term_by_path($path);
+	unset($query_vars['travelme_taxonomy_path']);
+
+	if (!$match) {
+		if (empty($query_vars['pagename']) && empty($query_vars['name'])) {
+			$query_vars['pagename'] = $path;
+		}
+		return $query_vars;
+	}
+
+	unset($query_vars['pagename'], $query_vars['name'], $query_vars['attachment'], $query_vars['attachment_id'], $query_vars['error']);
+
+	if ($match['taxonomy']->query_var) {
+		unset($query_vars[$match['taxonomy']->query_var]);
+	}
+
+	$query_vars['tax_query'] = array(
+		array(
+			'taxonomy'         => $match['taxonomy']->name,
+			'field'            => 'term_id',
+			'terms'            => array($match['term']->term_id),
+			'include_children' => false,
+		),
+	);
+
+	return $query_vars;
+}
+add_filter('request', 'travelme_resolve_short_taxonomy_request');
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
