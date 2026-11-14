@@ -631,3 +631,64 @@ add_action('wp_footer', function() {
     </div>
     <?php
 });
+
+
+
+/**
+ * 1. Xóa '/tour-type/' khỏi URL khi tạo link
+ */
+function simnathan_remove_tour_type_base($url, $term, $taxonomy) {
+    if ($taxonomy === 'tour-type') {
+        $url = str_replace('/tour-type/', '/', $url);
+    }
+    return $url;
+}
+add_filter('term_link', 'simnathan_remove_tour_type_base', 10, 3);
+
+/**
+ * 2. Tạo Rewrite Rule động chỉ cho các slug thuộc 'tour-type' (Tránh đụng độ với Page/Post)
+ */
+function simnathan_tour_type_rewrite_rules($rules) {
+    $new_rules = array();
+    $terms = get_terms(array(
+        'taxonomy'   => 'tour-type',
+        'hide_empty' => false,
+    ));
+
+    if (!empty($terms) && !is_wp_error($terms)) {
+        foreach ($terms as $term) {
+            // Hỗ trợ cả URL gốc và phân trang (/du-lich-trong-nuoc/page/2/)
+            $new_rules[$term->slug . '/?$'] = 'index.php?tour-type=' . $term->slug;
+            $new_rules[$term->slug . '/page/([0-9]{1,})/?$'] = 'index.php?tour-type=' . $term->slug . '&paged=$matches[1]';
+        }
+    }
+
+    return $new_rules + $rules;
+}
+add_filter('rewrite_rules_array', 'simnathan_tour_type_rewrite_rules');
+
+/**
+ * 3. Tự động làm mới (flush) Rewrite Rules khi thêm, sửa hoặc xóa term trong 'tour-type'
+ */
+function simnathan_flush_tour_type_rules($term_id, $tt_id, $taxonomy) {
+    if ($taxonomy === 'tour-type') {
+        flush_rewrite_rules(false);
+    }
+}
+add_action('created_term', 'simnathan_flush_tour_type_rules', 10, 3);
+add_action('edited_term', 'simnathan_flush_tour_type_rules', 10, 3);
+add_action('delete_term', 'simnathan_flush_tour_type_rules', 10, 3);
+
+/**
+ * 4. (Tùy chọn) Redirect 301 link cũ có '/tour-type/' sang link mới để chuẩn SEO
+ */
+function simnathan_redirect_old_tour_type_urls() {
+    if (is_tax('tour-type') && strpos($_SERVER['REQUEST_URI'], '/tour-type/') !== false) {
+        $term = get_queried_object();
+        if ($term && !is_wp_error($term)) {
+            wp_redirect(get_term_link($term), 301);
+            exit;
+        }
+    }
+}
+add_action('template_redirect', 'simnathan_redirect_old_tour_type_urls');
