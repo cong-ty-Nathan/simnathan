@@ -200,10 +200,7 @@ function travelme_scripts()
 	// Navigation script (kept from starter)
 	wp_enqueue_script('travelme-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
 
-	if (is_front_page() || is_page_template('custom-template/eSim-country.php')) {
-		wp_enqueue_style('travelme-esim-country', get_template_directory_uri() . '/assets/css/esim-country.css', array('travelme-style'), _S_VERSION);
-		wp_enqueue_script('travelme-esim-country', get_template_directory_uri() . '/assets/js/esim-country.js', array(), _S_VERSION, true);
-	}
+	
 
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
 		wp_enqueue_script('comment-reply');
