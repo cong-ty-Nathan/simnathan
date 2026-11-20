@@ -321,12 +321,57 @@ function custom_tour_archive_query($query)
             $date_timestamp = strtotime($date_input);
 
             if ($date_input !== '' && $date_timestamp !== false) {
-                $meta_query = array();
-                $meta_query[] = array(
-                    'key'         => 'department_date_',
-                    'compare_key' => 'LIKE',
-                    'value'       => date('Ymd', $date_timestamp),
-                    'compare'     => '=',
+                $departure_date = date('Ymd', $date_timestamp);
+                $departure_weekday = date('w', $date_timestamp);
+
+                $meta_query = array(
+                    'relation' => 'OR',
+                    array(
+                        'relation' => 'AND',
+                        array(
+                            'key'     => 'departure_type',
+                            'value'   => 'fixed',
+                            'compare' => '=',
+                        ),
+                        array(
+                            'key'         => 'department_date_',
+                            'compare_key' => 'LIKE',
+                            'value'       => $departure_date,
+                            'compare'     => '=',
+                        ),
+                    ),
+                    array(
+                        'relation' => 'AND',
+                        array(
+                            'key'     => 'departure_type',
+                            'value'   => 'daily',
+                            'compare' => '=',
+                        ),
+                        array(
+                            'key'     => 'daily_start_date',
+                            'value'   => $departure_date,
+                            'compare' => '<=',
+                            'type'    => 'NUMERIC',
+                        ),
+                        array(
+                            'key'     => 'daily_end_date',
+                            'value'   => $departure_date,
+                            'compare' => '>=',
+                            'type'    => 'NUMERIC',
+                        ),
+                        array(
+                            'relation' => 'OR',
+                            array(
+                                'key'     => 'excluded_days',
+                                'compare' => 'NOT EXISTS',
+                            ),
+                            array(
+                                'key'     => 'excluded_days',
+                                'value'   => '"' . $departure_weekday . '"',
+                                'compare' => 'NOT LIKE',
+                            ),
+                        ),
+                    ),
                 );
             }
         }
