@@ -60,6 +60,17 @@ get_header();
     <div class="container">
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                <?php
+                $selected_departure_date = '';
+                foreach (array('departure_date', 'datepicker') as $date_parameter) {
+                    if (isset($_GET[$date_parameter]) && is_string($_GET[$date_parameter])) {
+                        $selected_departure_date = sanitize_text_field(wp_unslash($_GET[$date_parameter]));
+                        if ($selected_departure_date !== '') {
+                            break;
+                        }
+                    }
+                }
+                ?>
                 <!-- form -->
                 <form action="<?= get_post_type_archive_link('tour'); ?>" method="GET">
                     <div class="row">
@@ -79,7 +90,7 @@ get_header();
                             <div class="form-group">
                                 <label class="control-label sr-only" for="datepicker">Ngày khởi hành</label>
                                 <div class="input-group">
-                                    <input id="datepicker" name="datepicker" type="text" placeholder="Ngày khởi hành" value="<?php echo esc_attr(isset($_GET['datepicker']) && is_string($_GET['datepicker']) ? sanitize_text_field(wp_unslash($_GET['datepicker'])) : ''); ?>" class="form-control">
+                                    <input id="datepicker" name="departure_date" type="text" placeholder="Ngày khởi hành" value="<?php echo esc_attr($selected_departure_date); ?>" class="form-control">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
