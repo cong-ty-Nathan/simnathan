@@ -323,6 +323,7 @@ function custom_tour_archive_query($query)
             if ($date_input !== '' && $date_timestamp !== false) {
                 $departure_date = date('Ymd', $date_timestamp);
                 $departure_weekday = date('w', $date_timestamp);
+				var_dump($departure_weekday);
 
                 $meta_query = array(
                     'relation' => 'OR',
