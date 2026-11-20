@@ -321,66 +321,107 @@ function custom_tour_archive_query($query)
 			if ($date_input !== '' && $date_timestamp !== false) {
 				$departure_date = date('Ymd', $date_timestamp);
 				$departure_weekday = date('w', $date_timestamp);
-				var_dump($departure_weekday);
 
-				$meta_query = array(
-					'relation' => 'OR',
+				$query->set(
+					'travelme_departure_filter',
 					array(
-						'relation' => 'AND',
-						array(
-							'key'     => 'departure_type',
-							'value'   => 'fixed',
-							'compare' => '=',
-						),
-						array(
-							'key'         => 'department_date',
-							'compare_key' => 'LIKE',
-							'value'       => $departure_date,
-							'compare'     => '=',
-						),
-					),
-					array(
-						'relation' => 'AND',
-						array(
-							'key'     => 'departure_type',
-							'value'   => 'daily',
-							'compare' => '=',
-						),
-						array(
-							'key'     => 'daily_start_date',
-							'value'   => $departure_date,
-							'compare' => '<=',
-							'type'    => 'NUMERIC',
-						),
-						array(
-							'key'     => 'daily_end_date',
-							'value'   => $departure_date,
-							'compare' => '>=',
-							'type'    => 'NUMERIC',
-						),
-						array(
-							'relation' => 'OR',
-							array(
-								'key'     => 'excluded_days',
-								'compare' => 'NOT EXISTS',
-							),
-							array(
-								'key'     => 'excluded_days',
-								'value'   => '"' . $departure_weekday . '"',
-								'compare' => 'NOT LIKE',
-							),
-						),
-					),
+						'date'    => $departure_date,
+						'weekday' => $departure_weekday,
+					)
 				);
 			}
-		}
-
-		if (!empty($meta_query)) {
-			$query->set('meta_query', $meta_query);
 		}
 	}
 }
 add_action('pre_get_posts', 'custom_tour_archive_query');
+
+function custom_tour_archive_date_where($where, $query)
+{
+	global $wpdb;
+
+	$departure_filter = $query->get('travelme_departure_filter');
+	if (
+		is_admin() ||
+		!$query->is_main_query() ||
+		!is_array($departure_filter) ||
+		!isset($departure_filter['date'], $departure_filter['weekday']) ||
+		!preg_match('/^\d{8}$/', $departure_filter['date']) ||
+		!preg_match('/^[0-6]$/', $departure_filter['weekday'])
+	) {
+		return $where;
+	}
+
+	$fixed_date_key_pattern = $wpdb->esc_like('department_date_') . '%';
+	$excluded_day_pattern = '%' . $wpdb->esc_like('"' . $departure_filter['weekday'] . '"') . '%';
+	$posts_table = $wpdb->posts;
+	$postmeta_table = $wpdb->postmeta;
+
+	$where .= $wpdb->prepare(
+		" AND (
+			(
+				EXISTS (
+					SELECT 1
+					FROM {$postmeta_table} AS tour_fixed_type
+					WHERE tour_fixed_type.post_id = {$posts_table}.ID
+						AND tour_fixed_type.meta_key = 'departure_type'
+						AND tour_fixed_type.meta_value = %s
+				)
+				AND EXISTS (
+					SELECT 1
+					FROM {$postmeta_table} AS tour_fixed_date
+					WHERE tour_fixed_date.post_id = {$posts_table}.ID
+						AND tour_fixed_date.meta_key LIKE %s
+						AND tour_fixed_date.meta_value = %s
+				)
+			)
+			OR
+			(
+				EXISTS (
+					SELECT 1
+					FROM {$postmeta_table} AS tour_daily_type
+					WHERE tour_daily_type.post_id = {$posts_table}.ID
+						AND tour_daily_type.meta_key = 'departure_type'
+						AND tour_daily_type.meta_value = %s
+				)
+				AND EXISTS (
+					SELECT 1
+					FROM {$postmeta_table} AS tour_daily_start
+					WHERE tour_daily_start.post_id = {$posts_table}.ID
+						AND tour_daily_start.meta_key = 'daily_start_date'
+						AND tour_daily_start.meta_value <= %s
+				)
+				AND EXISTS (
+					SELECT 1
+					FROM {$postmeta_table} AS tour_daily_end
+					WHERE tour_daily_end.post_id = {$posts_table}.ID
+						AND tour_daily_end.meta_key = 'daily_end_date'
+						AND tour_daily_end.meta_value >= %s
+				)
+				AND NOT EXISTS (
+					SELECT 1
+					FROM {$postmeta_table} AS tour_excluded_day
+					WHERE tour_excluded_day.post_id = {$posts_table}.ID
+						AND tour_excluded_day.meta_key = 'excluded_days'
+						AND (
+							tour_excluded_day.meta_value = %s
+							OR tour_excluded_day.meta_value LIKE %s
+						)
+				)
+			)
+		)",
+		'fixed',
+		$fixed_date_key_pattern,
+		$departure_filter['date'],
+		'daily',
+		$departure_filter['date'],
+		$departure_filter['date'],
+		$departure_filter['weekday'],
+		$excluded_day_pattern
+	);
+
+	return $where;
+}
+add_filter('posts_where', 'custom_tour_archive_date_where', 10, 2);
 
 //Hàm xử lý hiển thị phân trang
 function custom_pagination($query = null)
