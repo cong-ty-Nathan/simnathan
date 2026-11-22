@@ -184,6 +184,7 @@ function travelme_scripts()
 	// Prefer WP's built-in jQuery; do not register a separate jquery.min.js unless necessary.
 	wp_enqueue_script('travelme-jquery', get_template_directory_uri() . '/assets/js/jquery.min.js', array(), _S_VERSION, true);
 	wp_enqueue_script('travelme-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.min.js', array('travelme-jquery'), _S_VERSION, true);
+	wp_enqueue_script('travelme-black-friday-popup', get_template_directory_uri() . '/assets/js/black-friday-popup.js', array('travelme-bootstrap'), _S_VERSION, true);
 	wp_enqueue_script('travelme-menumaker', get_template_directory_uri() . '/assets/js/menumaker.js', array('travelme-jquery',), _S_VERSION, true);
 	wp_enqueue_script('travelme-sticky', get_template_directory_uri() . '/assets/js/jquery.sticky.js', array('travelme-jquery'), _S_VERSION, true);
 	wp_enqueue_script('travelme-sticky-header', get_template_directory_uri() . '/assets/js/sticky-header.js', array('travelme-jquery'), _S_VERSION, true);
@@ -319,8 +320,8 @@ function custom_tour_archive_query($query)
 			$date_timestamp = strtotime($date_input);
 
 			if ($date_input !== '' && $date_timestamp !== false) {
-				$departure_date = date('Ymd', $date_timestamp);
-				$departure_weekday = date('w', $date_timestamp);
+				$departure_date = date('Ymd', $date_timestamp); // "20262211"
+				$departure_weekday = date('w', $date_timestamp); // "0"
 
 				$query->set(
 					'travelme_departure_filter',
@@ -329,6 +330,7 @@ function custom_tour_archive_query($query)
 						'weekday' => $departure_weekday,
 					)
 				);
+				//'travelme_departure_filter' => array("date" => "20262211","weekday" => "0");
 			}
 		}
 	}

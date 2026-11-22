@@ -73,6 +73,22 @@
             </div>
         </div>
         <!-- /.footer -->
+        <div class="modal fade black-friday-modal" id="blackFridayModal" tabindex="-1" role="dialog" aria-labelledby="blackFridayModalTitle" aria-describedby="blackFridayModalDescription" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content black-friday-modal__content">
+                    <button type="button" class="close black-friday-modal__close" data-dismiss="modal" aria-label="Đóng popup">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <a class="black-friday-modal__offer" href="http://gigago.com/#esimnathan">
+                        <span class="black-friday-modal__eyebrow">ƯU ĐÃI ĐẶC BIỆT</span>
+                        <h2 class="black-friday-modal__title" id="blackFridayModalTitle">BLACK FRIDAY</h2>
+                        <span class="black-friday-modal__discount">GIẢM 15%</span>
+                        <p class="black-friday-modal__description" id="blackFridayModalDescription">Sẵn sàng kết nối cho mọi hành trình cùng eSIM.</p>
+                        <span class="black-friday-modal__button">KHÁM PHÁ ƯU ĐÃI</span>
+                    </a>
+                </div>
+            </div>
+        </div>
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
