@@ -73,37 +73,14 @@
             </div>
         </div>
         <!-- /.footer -->
-        <div class="modal fade black-friday-modal" id="blackFridayModal" tabindex="-1" role="dialog" aria-labelledby="blackFridayModalTitle" aria-describedby="blackFridayModalDescription" aria-hidden="true">
+        <div class="modal fade black-friday-modal" id="blackFridayModal" tabindex="-1" role="dialog" aria-label="Ưu đãi Black Friday" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content black-friday-modal__content">
                     <button type="button" class="close black-friday-modal__close" data-dismiss="modal" aria-label="Đóng popup">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <a class="black-friday-modal__offer" href="http://gigago.com/#esimnathan">
-                        <span class="black-friday-modal__eyebrow">MÃ ƯU ĐÃI</span>
-                        <h2 class="black-friday-modal__title" id="blackFridayModalTitle">BLACKFRIDAY15</h2>
-                        <span class="black-friday-modal__discount">15% OFF ESIM</span>
-                        <p class="black-friday-modal__description" id="blackFridayModalDescription">Sẵn sàng kết nối cho mọi hành trình cùng eSIM.</p>
-                        <h3 class="black-friday-countdown__title">Black Friday sẽ kết thúc</h3>
-                        <div class="black-friday-countdown" role="timer" aria-label="Thời gian còn lại đến hết ngày 30 tháng 11">
-                            <div class="black-friday-countdown__item">
-                                <span class="black-friday-countdown__value" data-countdown-days>00</span>
-                                <span class="black-friday-countdown__label">ngày</span>
-                            </div>
-                            <div class="black-friday-countdown__item">
-                                <span class="black-friday-countdown__value" data-countdown-hours>00</span>
-                                <span class="black-friday-countdown__label">giờ</span>
-                            </div>
-                            <div class="black-friday-countdown__item">
-                                <span class="black-friday-countdown__value" data-countdown-minutes>00</span>
-                                <span class="black-friday-countdown__label">phút</span>
-                            </div>
-                            <div class="black-friday-countdown__item">
-                                <span class="black-friday-countdown__value" data-countdown-seconds>00</span>
-                                <span class="black-friday-countdown__label">giây</span>
-                            </div>
-                        </div>
-                        <span class="black-friday-modal__button">MUA NGAY</span>
+                        <img class="black-friday-modal__image" src="https://simnathandev.com/wp-content/uploads/2026/11/blackfriday.jpg" alt="Ưu đãi Black Friday">
                     </a>
                 </div>
             </div>
