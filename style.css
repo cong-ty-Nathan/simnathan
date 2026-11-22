@@ -270,3 +270,6 @@ span.wpcf7-form-control-wrap {
 	color: #fff;
 	opacity: 1;
 }
+.logo a img {
+	width: 72px !important;
+}
