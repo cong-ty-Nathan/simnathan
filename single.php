@@ -176,7 +176,7 @@ get_header();
 						</div>
 						<!-- widget-recent-post-close-->
 						<!-- widget-archives-start -->
-						<?php if (!is_product()) : ?>
+						
 							<div class=" widget widget-archives">
 								<h2 class="widget-title">Archives</h2>
 								<ul class="list-none">
@@ -194,7 +194,7 @@ get_header();
 							<!-- widget-archives-close -->
 							
 							<!-- widget-Tag close -->
-						<?php endif; ?>
+						
 					</div>
 				</div>
 			</div>
