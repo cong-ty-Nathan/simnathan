@@ -81,7 +81,7 @@ get_header();
 						</div>
 
 						<!-- /. post navigation -->
-						<?php if (!is_product()) : ?>
+						
 							<div class="related-post-block">
 								<div class="row">
 									<div class="col-xl-12 col-lg-12 col-sm-12 col-md-12 col-12">
@@ -115,7 +115,7 @@ get_header();
 
 								</div>
 							</div>
-						<?php endif; ?>
+						
 						<!-- /.related post block -->
 						<!-- /.post author -->
 					</div>
