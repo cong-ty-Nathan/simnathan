@@ -19,7 +19,7 @@ get_header();
 	?>
 		<!-- /. header-section-->
 		<!-- page-header -->
-		<?php if (!is_product()) : ?>
+		
 			<div class="post-pageheader" style="background: url(<?php echo get_the_post_thumbnail_url(); ?>) no-repeat; background-position: top center; background-size:cover;">
 				<div class="container">
 					<div class="row">
@@ -36,7 +36,7 @@ get_header();
 					</div>
 				</div>
 			</div>
-		<?php endif; ?>
+		
 		<!-- /.page-header-->
 		<!-- blog-section -->
 		<div class="content">
