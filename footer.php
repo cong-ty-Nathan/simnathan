@@ -80,8 +80,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <a class="black-friday-modal__offer" href="http://gigago.com/#esimnathan">
-                        <span class="black-friday-modal__eyebrow">ƯU ĐÃI ĐẶC BIỆT</span>
-                        <h2 class="black-friday-modal__title" id="blackFridayModalTitle">BLACK FRIDAY</h2>
+                        <span class="black-friday-modal__eyebrow">MÃ ƯU ĐÃI</span>
+                        <h2 class="black-friday-modal__title" id="blackFridayModalTitle">BLACKFRIDAY15</h2>
                         <span class="black-friday-modal__discount">15% OFF ESIM</span>
                         <p class="black-friday-modal__description" id="blackFridayModalDescription">Sẵn sàng kết nối cho mọi hành trình cùng eSIM.</p>
                         <span class="black-friday-modal__button">KHÁM PHÁ ƯU ĐÃI</span>
