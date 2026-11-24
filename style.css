@@ -221,3 +221,58 @@ span.wpcf7-form-control-wrap {
 	color: #007bff !important; 
 	font-weight: bold;
 }
+
+.black-friday-modal .modal-dialog {
+	max-width: 720px;
+	padding: 0 12px;
+}
+
+.black-friday-modal__content {
+	position: relative;
+	overflow: hidden;
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	box-shadow: none;
+}
+
+.black-friday-modal__offer {
+	display: block;
+	line-height: 0;
+}
+
+.black-friday-modal__close {
+	position: absolute;
+	top: 8px;
+	right: 14px;
+	z-index: 1;
+	display: flex;
+	width: 40px;
+	height: 40px;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	font-size: 32px;
+	opacity: 0.85;
+	text-shadow: none;
+}
+
+.black-friday-modal__image {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.black-friday-modal__close:hover,
+.black-friday-modal__close:focus {
+	color: #fff;
+	opacity: 1;
+}
+.logo a img {
+	width: 72px !important;
+}
+.ft-img img {
+	width: 150px !important;
+}

@@ -73,6 +73,18 @@
             </div>
         </div>
         <!-- /.footer -->
+        <div class="modal fade black-friday-modal" id="blackFridayModal" tabindex="-1" role="dialog" aria-label="Ưu đãi Black Friday" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content black-friday-modal__content">
+                    <button type="button" class="close black-friday-modal__close" data-dismiss="modal" aria-label="Đóng popup">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <a class="black-friday-modal__offer" href="http://gigago.com/#esimnathan">
+                        <img class="black-friday-modal__image" src="https://simnathandev.com/wp-content/uploads/2026/11/blackfriday.jpg" alt="Ưu đãi Black Friday">
+                    </a>
+                </div>
+            </div>
+        </div>
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">

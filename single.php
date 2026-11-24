@@ -19,7 +19,7 @@ get_header();
 	?>
 		<!-- /. header-section-->
 		<!-- page-header -->
-		<?php if (!is_product()) : ?>
+		
 			<div class="post-pageheader" style="background: url(<?php echo get_the_post_thumbnail_url(); ?>) no-repeat; background-position: top center; background-size:cover;">
 				<div class="container">
 					<div class="row">
@@ -36,7 +36,7 @@ get_header();
 					</div>
 				</div>
 			</div>
-		<?php endif; ?>
+		
 		<!-- /.page-header-->
 		<!-- blog-section -->
 		<div class="content">
@@ -81,7 +81,7 @@ get_header();
 						</div>
 
 						<!-- /. post navigation -->
-						<?php if (!is_product()) : ?>
+						
 							<div class="related-post-block">
 								<div class="row">
 									<div class="col-xl-12 col-lg-12 col-sm-12 col-md-12 col-12">
@@ -115,7 +115,7 @@ get_header();
 
 								</div>
 							</div>
-						<?php endif; ?>
+						
 						<!-- /.related post block -->
 						<!-- /.post author -->
 					</div>
@@ -176,7 +176,7 @@ get_header();
 						</div>
 						<!-- widget-recent-post-close-->
 						<!-- widget-archives-start -->
-						<?php if (!is_product()) : ?>
+						
 							<div class=" widget widget-archives">
 								<h2 class="widget-title">Archives</h2>
 								<ul class="list-none">
@@ -194,7 +194,7 @@ get_header();
 							<!-- widget-archives-close -->
 							
 							<!-- widget-Tag close -->
-						<?php endif; ?>
+						
 					</div>
 				</div>
 			</div>
