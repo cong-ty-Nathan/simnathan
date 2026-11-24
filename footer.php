@@ -1,4 +1,4 @@
-        <!-- footer -->
+<!-- footer -->
         <div class="footer">
             <div class="container">
                 <div class="row ">
@@ -73,18 +73,35 @@
             </div>
         </div>
         <!-- /.footer -->
+
+        <?php
+        $popup_image = get_field("popup_image", "option");
+        $popup_link  = get_field("popup_link", "option");
+
+        // Hỗ trợ cả 2 định dạng trả về của ACF (Image Array hoặc Image URL)
+        if (is_array($popup_image)) {
+            $popup_img_url = !empty($popup_image['url']) ? $popup_image['url'] : 'https://simnathandev.com/wp-content/uploads/2026/11/blackfriday.jpg';
+            $popup_img_alt = !empty($popup_image['alt']) ? $popup_image['alt'] : 'Ưu đãi Black Friday';
+        } else {
+            $popup_img_url = !empty($popup_image) ? $popup_image : 'https://simnathandev.com/wp-content/uploads/2026/11/blackfriday.jpg';
+            $popup_img_alt = 'Ưu đãi Black Friday';
+        }
+
+        $popup_href = !empty($popup_link) ? $popup_link : '';
+        ?>
         <div class="modal fade black-friday-modal" id="blackFridayModal" tabindex="-1" role="dialog" aria-label="Ưu đãi Black Friday" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content black-friday-modal__content">
                     <button type="button" class="close black-friday-modal__close" data-dismiss="modal" aria-label="Đóng popup">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <a class="black-friday-modal__offer" href="http://gigago.com/#esimnathan">
-                        <img class="black-friday-modal__image" src="https://simnathandev.com/wp-content/uploads/2026/11/blackfriday.jpg" alt="Ưu đãi Black Friday">
+                    <a class="black-friday-modal__offer" href="<?php echo esc_url($popup_href); ?>">
+                        <img class="black-friday-modal__image" src="<?php echo esc_url($popup_img_url); ?>" alt="<?php echo esc_attr($popup_img_alt); ?>">
                     </a>
                 </div>
             </div>
         </div>
+
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
