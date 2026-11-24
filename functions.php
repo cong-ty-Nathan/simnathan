@@ -119,32 +119,6 @@ function travelme_setup()
 add_action('after_setup_theme', 'travelme_setup');
 
 /**
- * Remove the tour-type base from term links.
- */
-function travelme_remove_tour_type_base_from_term_link($url, $term, $taxonomy)
-{
-	if ($taxonomy === 'tour-type') {
-		$url = str_replace('/tour-type/', '/', $url);
-	}
-
-	return $url;
-}
-add_filter('term_link', 'travelme_remove_tour_type_base_from_term_link', 10, 3);
-
-/**
- * Route short tour-type term URLs to the taxonomy query.
- */
-function travelme_register_tour_type_rewrite_rule()
-{
-	add_rewrite_rule('^([^/]+)/?$', 'index.php?tour-type=$matches[1]', 'top');
-
-	if (get_option('travelme_tour_type_rewrite_version') !== '1') {
-		flush_rewrite_rules(false);
-		update_option('travelme_tour_type_rewrite_version', '1');
-	}
-}
-add_action('init', 'travelme_register_tour_type_rewrite_rule');
-/**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
  * Priority 0 to make it available to lower priority callbacks.
@@ -328,42 +302,6 @@ function prevent_html_in_comments($commentdata)
 }
 add_filter('preprocess_comment', 'prevent_html_in_comments', 10, 1);
 
-function nathan_load_excluded_days_choices($field)
-{
-    if (empty($field['choices'])) {
-        $field['choices'] = array(
-            'Mon' => 'Thứ Hai',
-            'Tue' => 'Thứ Ba',
-            'Wed' => 'Thứ Tư',
-            'Thu' => 'Thứ Năm',
-            'Fri' => 'Thứ Sáu',
-            'Sat' => 'Thứ Bảy',
-            'Sun' => 'Chủ Nhật',
-        );
-    }
-
-    return $field;
-}
-add_filter('acf/load_field/name=excluded_days', 'nathan_load_excluded_days_choices');
-
-function nathan_parse_tour_departure_date($date_input)
-{
-    $formats = array('!d/m/Y', '!d/m/y', '!m/d/Y', '!m/d/y', '!Y-m-d', '!Ymd');
-
-    foreach ($formats as $format) {
-        $date = DateTimeImmutable::createFromFormat($format, $date_input, wp_timezone());
-        $errors = DateTimeImmutable::getLastErrors();
-
-        if (
-            $date !== false
-            && ($errors === false || ($errors['warning_count'] === 0 && $errors['error_count'] === 0))
-        ) {
-            return $date;
-        }
-    }
-
-    return false;
-}
 
 function custom_tour_archive_query($query)
 {
